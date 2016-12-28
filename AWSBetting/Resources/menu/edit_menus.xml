@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+       android:id="@+id/menu_create"
+       android:icon="@drawable/ic_add_white_24dp"
+       android:showAsAction="ifRoom"
+       android:title="New" />
+  <item
+       android:id="@+id/menu_edit"
+       android:icon="@drawable/ic_action_content_create"
+       android:showAsAction="ifRoom"
+       android:title="Edit" />
+  <item
+       android:id="@+id/menu_close"
+       android:icon="@drawable/ic_monetization_on_white_24dp"
+       android:showAsAction="ifRoom"
+       android:title="Close" />
+  <item
+       android:id="@+id/menu_preferences"
+       android:icon="@drawable/ic_settings_white_24dp"
+       android:showAsAction="ifRoom"
+       android:title="Setting" />
+</menu>

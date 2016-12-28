@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <!--<item
+        android:id="@+id/providerSpinnerToolbar"
+        android:title="Provider"
+        android:actionViewClass="android.widget.Spinner"        
+        android:showAsAction="always"
+         />-->
+  <item
+       android:id="@+id/menu_save"
+       android:icon="@drawable/ic_action_content_save"
+       android:showAsAction="ifRoom"
+       android:title="Save" />
+  <item
+       android:id="@+id/menu_delete"
+       android:icon="@drawable/ic_delete_white_24dp"
+       android:showAsAction="ifRoom"
+       android:title="Delete" />
+  <item
+       android:id="@+id/menu_deleteAll"
+       android:icon="@drawable/ic_delete_sweep_white_24dp"
+       android:showAsAction="ifRoom"
+       android:title="DeleteAll" />
+</menu>

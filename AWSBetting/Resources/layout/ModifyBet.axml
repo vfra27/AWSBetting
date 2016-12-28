@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:id="@+id/modTeamName"
+        android:layout_marginTop="40dp" />
+<!--<TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/modBetType"
+        android:layout_marginTop="30dp" />-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/modLastBet"
+        android:layout_marginTop="30dp"
+        android:inputType="numberDecimal" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/modBetType"
+        android:layout_marginTop="30dp"
+        android:editable="false" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout1"
+        android:layout_marginTop="30dp"
+        android:minWidth="25px"
+        android:minHeight="25px">
+    <!--<Button
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/modSave"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp" />
+        <Button
+            android:text="Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/modDelete"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp" /> 
+        <Button
+            android:text="Delete All"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/modDelete"
+            android:id="@+id/modDeleteAll"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp" />-->
+        <Toolbar
+            android:minHeight="?android:attr/actionBarSize"
+            android:background="?android:attr/colorPrimary"
+            android:minWidth="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/modifyBetToolbar"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

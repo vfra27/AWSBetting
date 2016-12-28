@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="ApplicationName">BettingPerding</string>
+    <string name="Home_Tab_Label">Home</string>
+    <string name="ActiveBet_Tab_Label">Active Bet</string>
+    <string name="ClosedBet_Tab_Label">Closed Bet</string>
+  <string name="Rankings_Tab_Label">Ranking</string>
+  <string name="Calendars_Tab_Label">Calendar</string>
+  <string name="teams_prompt">Choose a team</string>
+</resources>
