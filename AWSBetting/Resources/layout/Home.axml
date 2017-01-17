@@ -25,7 +25,7 @@
         p1:id="@+id/closeBetBtn"
         p1:layout_toRightOf="@id/modifyBetBtn"
         p1:layout_alignParentBottom="true" />-->
-    <!--<Spinner
+<!--<Spinner
         p1:layout_width="150dp"
         p1:layout_height="50dp"
         p1:id="@+id/betProviders"
@@ -44,11 +44,10 @@
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="fill_parent"
-        p1:layout_height="400dp"
-        p1:id="@+id/balanceLayout"
-        >
-      <!--p1:layout_centerInParent="true"-->
-    <OxyPlot.Xamarin.Android.PlotView
+        p1:layout_height="420dp"
+        p1:id="@+id/balanceLayout">
+    <!--p1:layout_centerInParent="true"-->
+        <OxyPlot.Xamarin.Android.PlotView
             p1:id="@+id/plot_view"
             p1:layout_width="match_parent"
             p1:layout_height="match_parent" />

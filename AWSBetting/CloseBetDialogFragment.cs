@@ -11,10 +11,11 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Android.Support.V4.App;
 
 namespace AWSBetting
 {
-    public class CloseBetDialogFragment : DialogFragment
+    public class CloseBetDialogFragment : Android.Support.V4.App.DialogFragment
     {
         List<Team> activeBetTeams = new List<Team>();
 
@@ -53,7 +54,20 @@ namespace AWSBetting
                      //salvataggio e chiusura dialog                     
                      SelectedTeam = activeBetTeams[activeBetTeamsSpinner.SelectedItemPosition];
                      SelectedTeam.Win = Convert.ToDecimal(win.Text);
-                     SelectedTeam.Status = true;                     
+                     SelectedTeam.Status = true;
+
+
+                     List<BetDetails> details = AWSDataAccess.GetBetDetailsByTeamId(SelectedTeam.Id);
+                     decimal totalCost = 0;
+
+                     foreach (var d in details)
+                     {
+                         totalCost += d.Quantity;
+                     }
+
+                     SelectedTeam.TotalCost = totalCost;
+                     //calculate total cost
+                                          
                      if (AWSDataAccess.UpdateCloseWin(SelectedTeam) != Guid.Empty)
                      {
                          Toast.MakeText(Activity, "Win saved", ToastLength.Long).Show();

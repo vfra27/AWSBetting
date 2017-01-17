@@ -11,10 +11,12 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using System.Threading;
+using Android.Support.V4.App;
+using Android.Support.V4.View;
 
 namespace AWSBetting
 {
-    public class ModifyBetFragment : Fragment
+    public class ModifyBetFragment : Android.Support.V4.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -267,9 +269,12 @@ namespace AWSBetting
 
         private void BackHome()
         {
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
-            ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
-            ft.Commit();
+            //Android.Support.V4.App.FragmentTransaction ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            ////ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
+            //ft.Commit();
+            TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+                             (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;            
+            adapter.RemoveFragment();
         }
 
         private int running=1;

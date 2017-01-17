@@ -11,10 +11,12 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
+using Android.Support.V4.App;
+using Android.Support.V4.View;
 
 namespace AWSBetting
 {
-    public class CalculateBetFragment : Fragment
+    public class CalculateBetFragment : Android.Support.V4.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -68,9 +70,13 @@ namespace AWSBetting
                     if (AWSDataAccess.InsertBetDetails(newBet) != Guid.Empty)
                     {
                         Toast.MakeText(Activity, "Bet saved", ToastLength.Long).Show();
-                        FragmentTransaction ft = FragmentManager.BeginTransaction();
-                        ft.Replace(Resource.Id.frameLayout1, new ActiveBetFragment());
-                        ft.Commit();
+                        //Android.Support.V4.App.FragmentTransaction ft = Activity.SupportFragmentManager
+                        //.BeginTransaction();
+                        //ft.Replace(Resource.Id.root_frame, new ActiveBetFragment());
+                        //ft.Commit();
+                        TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+                        (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+                        adapter.RemoveFragment();
                     }
                     else
                     {

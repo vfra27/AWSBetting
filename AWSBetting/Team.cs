@@ -13,6 +13,17 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace AWSBetting
 {    
+
+    public class Recharge
+    {
+        public Guid Id { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
+
+        public BetProvider BetProvider { get; set; }
+    }
+
+
     public class Team
     {
 
@@ -28,6 +39,7 @@ namespace AWSBetting
         public decimal Win { get; set; }
 
         public BetProvider BetProvider { get; set; }
+        public decimal TotalCost { get; set; }
     }
 
     public enum BetProvider
@@ -91,7 +103,16 @@ namespace AWSBetting
     
     public static class ApplicationState
     {
+        private static bool isFirstRun = true;
         public static BetProvider ActiveProvider { get; set; }
+        public static bool IsFirstRun {
+            get { return isFirstRun; }
+            set {
+
+                isFirstRun = value;
+            }
+
+        }
     }
     
     //public enum Bet { one=1, x=0, two=2}

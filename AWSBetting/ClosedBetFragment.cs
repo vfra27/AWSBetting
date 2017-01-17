@@ -11,10 +11,12 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using System.Threading;
+using Android.Support.V4.App;
+using Android.Support.V4.View;
 
 namespace AWSBetting
 {
-    public class ClosedBetFragment : Fragment
+    public class ClosedBetFragment : Android.Support.V4.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,29 +34,37 @@ namespace AWSBetting
 
             View view = inflater.Inflate(Resource.Layout.ClosedBet, null);
 
-            var progressDialog = ProgressDialog.Show(Activity, "", "Loading bet", true);
-            progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            List<Team> teams = AWSDataAccess.GetBetTeam(1);
+            ListView closedBetList = view.FindViewById<ListView>(Resource.Id.ClosedBetList);
+            ViewGroup header = (ViewGroup)inflater.Inflate(Resource.Layout.ClosedBetHeader, closedBetList, false);
+            closedBetList.AddHeaderView(header, null, false);
+            closedBetList.Adapter = new ClosedBetAdapter(Activity, teams);
 
-            progressDialog.Show();
+            #region with progress dialog
+            //var progressDialog = ProgressDialog.Show(Activity, "", "Loading bet", true);
+            //progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
 
-            
+            //progressDialog.Show();
 
-            new Thread(new ThreadStart(delegate
-            {
-                Thread.Sleep(1000);
-                List<Team> teams = AWSDataAccess.GetBetTeam(1);
-                Activity.RunOnUiThread(() => {
-                    ListView closedBetList = view.FindViewById<ListView>(Resource.Id.ClosedBetList);
-                    ViewGroup header = (ViewGroup)inflater.Inflate(Resource.Layout.ClosedBetHeader, closedBetList, false);
-                    closedBetList.AddHeaderView(header, null, false);
-                    closedBetList.Adapter = new ClosedBetAdapter(Activity, teams);
-                });
-                //Activity.RunOnUiThread(() => { });                
-                
+            //new Thread(new ThreadStart(delegate
+            //{
+            //    Thread.Sleep(1000);
+            //    List<Team> teams = AWSDataAccess.GetBetTeam(1);
+            //    Activity.RunOnUiThread(() => {
+            //        ListView closedBetList = view.FindViewById<ListView>(Resource.Id.ClosedBetList);
+            //        ViewGroup header = (ViewGroup)inflater.Inflate(Resource.Layout.ClosedBetHeader, closedBetList, false);
+            //        closedBetList.AddHeaderView(header, null, false);
+            //        closedBetList.Adapter = new ClosedBetAdapter(Activity, teams);
+            //    });
+            //    //Activity.RunOnUiThread(() => { });                
 
-                Thread.Sleep(10);
-                progressDialog.Dismiss();
-            })).Start();
+
+            //    Thread.Sleep(10);
+            //    progressDialog.Dismiss();
+            //})).Start();
+
+            #endregion
+
 
 
 

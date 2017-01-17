@@ -35,6 +35,8 @@ namespace AWSBetting
             dbConString.ConnectionString = "Data Source=betting.ctmdahjqzmcq.us-east-1.rds.amazonaws.com,1433;Initial Catalog=BettingPerding;User ID=vfra87;Password=12345678";
             dbConString.ConnectTimeout=0;
             return dbConString;
+            #region oldcode
+
             //dbConString.Encrypt = true;
 
             //using (SqlConnection con = new SqlConnection(dbConString.ConnectionString))
@@ -104,13 +106,36 @@ namespace AWSBetting
             //    System.Diagnostics.Debug.WriteLine("Name:={0}",item["Name"]);
             //    System.Diagnostics.Debug.WriteLine("Bet:={0}", item["Bet"]);
             //}
+            #endregion
         }
+
+        public static Guid InsertRecharge(Recharge r)
+        {
+            string sqlQuery = "Insert into Recharge(Id,Amount,Date,Bet_Provider) OUTPUT Inserted.Id "
+                + "Values (@id, @amount, @date, @betProvider)";
+
+            Guid result = Guid.Empty;
+
+            using (SqlCommand cmd = new SqlCommand(sqlQuery))
+            {
+                cmd.Parameters.Add("@id", SqlDbType.UniqueIdentifier).Value = r.Id;
+                cmd.Parameters.Add("@amount", SqlDbType.Decimal).Value = r.Amount;
+                cmd.Parameters.Add("@date", SqlDbType.DateTime).Value = r.Date;
+                cmd.Parameters.Add("@betProvider", SqlDbType.Int).Value = r.BetProvider;
+                //cmd.Connection= new SqlConnection(Initialize().ConnectionString);
+                result = Insert(cmd);
+            }
+
+            return result;
+        }
+
 
         public static Guid InsertTeam(Team t)
         {
             //String.Format(, t.Id, t.Name, t.Status, t.Bet,t.Win)
-            string sqlQuery = "Insert into Team (Id,Name,Status,Bet,Win,Bet_Provider) OUTPUT Inserted.Id "
-                + "Values (@id, @name, @status, @bet, @win, @betProvider);";
+            string sqlQuery = "Insert into Team (Id,Name,Status,Bet,Win,Bet_Provider,Total_Cost) " 
+                + "OUTPUT Inserted.Id "
+                + "Values (@id, @name, @status, @bet, @win, @betProvider, @totalCost);";
             Guid result = Guid.Empty;
 
             using (SqlCommand cmd = new SqlCommand(sqlQuery))
@@ -121,6 +146,7 @@ namespace AWSBetting
                 cmd.Parameters.Add("@bet", SqlDbType.NVarChar).Value = t.Bet;
                 //SqlParameter win = new SqlParameter("@win",SqlDbType.Money);
                 cmd.Parameters.Add("@win", SqlDbType.Decimal).Value = t.Win;
+                cmd.Parameters.Add("@totalCost", SqlDbType.Decimal).Value = t.TotalCost;
                 cmd.Parameters.Add("@betProvider", SqlDbType.Int).Value = t.BetProvider;
                 //cmd.Connection= new SqlConnection(Initialize().ConnectionString);
                 result = Insert(cmd);
@@ -277,7 +303,8 @@ namespace AWSBetting
 
         public static Guid UpdateCloseWin(Team t)
         {
-            string sqlQuery = "Update Team SET Status = @status, Win=@win OUTPUT Inserted.Id "
+            string sqlQuery = "Update Team SET Status = @status, Win=@win, Total_Cost=@totalCost "
+                +"OUTPUT Inserted.Id "
                 +"Where ID=@id ; ";
             Guid result = Guid.Empty;
 
@@ -285,6 +312,7 @@ namespace AWSBetting
             {
                 cmd.Parameters.Add("@status", SqlDbType.Bit).Value = t.Status;
                 cmd.Parameters.Add("@win", SqlDbType.Decimal).Value = t.Win;
+                cmd.Parameters.Add("@totalCost", SqlDbType.Decimal).Value = t.TotalCost;
                 cmd.Parameters.Add("@id", SqlDbType.UniqueIdentifier).Value = t.Id;                
                 
                 //cmd.Parameters.Add("@bet", SqlDbType.NChar).Value = t.Bet;
@@ -339,6 +367,41 @@ namespace AWSBetting
             {
                 return s;
             }
+        }
+
+
+        public static List<Recharge> GetRecharges()
+        {
+            List<Recharge> recharges = new List<Recharge>();
+            string sqlQuery = "Select * from recharge where bet_provider=@betProvider";
+            int provider = (int)ApplicationState.ActiveProvider;
+
+            using (SqlCommand cmd = new SqlCommand(sqlQuery))
+            {
+                cmd.Parameters.Add("@betProvider", SqlDbType.Int).Value = provider;
+                using (SqlConnection connection = new SqlConnection(Initialize().ConnectionString))
+                {
+                    connection.Open();
+                    cmd.Connection = connection;
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        if (dataReader.HasRows)
+                        {
+                            while (dataReader.Read())
+                            {
+                                Recharge r = new Recharge();
+                                r.Id = new Guid(dataReader["Id"].ToString());
+                                r.Amount = Convert.ToDecimal(dataReader["Amount"]);
+                                //r.Date = new Guid(dataReader["Date"].ToString());
+                                recharges.Add(r);
+                            }
+                        }
+                        dataReader.Close();
+                    }
+                    connection.Close();
+                }
+            }
+            return recharges;
         }
 
 

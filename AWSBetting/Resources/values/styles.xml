@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources  >
+  <style name="DesignTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
+    <item name="windowNoTitle" >true </item >
+    <item name="windowActionBar" >false </item >
+    <item name="colorPrimary" >#E53935</item >
+    <item name="colorPrimaryDark" >#D32F2F</item >    
+    <!--<item name="colorAccent" >@color/accent </item >-->
+  </style >
+  <style name="CustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+    <item name="android:windowNoTitle">false</item>
+  </style>
+</resources >

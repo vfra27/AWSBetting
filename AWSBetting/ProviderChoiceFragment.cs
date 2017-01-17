@@ -10,10 +10,12 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.View;
 
 namespace AWSBetting
 {
-    public class ProviderChoiceFragment : DialogFragment
+    public class ProviderChoiceFragment : Android.Support.V4.App.DialogFragment
     {
         public static ProviderChoiceFragment NewInstance(Bundle bundle)
         {
@@ -24,11 +26,16 @@ namespace AWSBetting
 
         public override void OnDestroy()
         {
+
+
             base.OnDestroy();
 
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
-            ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
-            ft.Commit();
+            //ViewPager pager = Activity.FindViewById<ViewPager>(Resource.Id.pager);
+            //pager.
+            //((TabsFragmentPagerAdapter)pager.Adapter).;
+            //Android.Support.V4.App.FragmentTransaction ft = Activity.SupportFragmentManager.BeginTransaction();
+            //ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
+            //ft.Commit();
             //if (FragmentManager.FindFragmentById<HomeFragment>(Resource.Id.home) !=null)
             //{
 

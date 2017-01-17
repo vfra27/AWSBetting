@@ -12,17 +12,28 @@ using Amazon.DynamoDBv2;
 using System.Collections.Generic;
 using Android.Net;
 using AWSBetting;
+using Android.Support.V4.View;
+using Android.Support.V4.App;
+using Android.Support.V4.Widget;
+using Android.Support.Design.Widget;
+using Android.Support.V7.App;
+using Android.Support.V7.Widget;
+using System.Threading;
 
 namespace AWSBetting
 {
-    [Activity(Label = "BettingPerding", MainLauncher = true, Icon = "@drawable/profit")]
-    public class MainActivity : Activity
+    [Activity(Label = "BettingPerding", MainLauncher = true, Icon = "@drawable/profit", 
+        WindowSoftInputMode =SoftInput.AdjustPan)]
+    public class MainActivity : AppCompatActivity
     {
         int count = 1;
 
         static readonly string Tag = "ActionBarTabsSupport";
-        Fragment[] _fragments;
-        
+        //Fragment[] _fragments;
+
+        TabLayout tabLayout;
+                      
+
         protected override void OnCreate(Bundle bundle)
         {
             
@@ -93,13 +104,14 @@ namespace AWSBetting
             //}
             #endregion
 
+            #region OLD CODE
             //List<Team> teams= AWSDataAccess.SelectActiveBetTeam();
 
             //button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
-            ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-            SetContentView(Resource.Layout.Main);
-            
-            
+
+
+
+
 
             //List<Team> teams = new List<Team>();
 
@@ -139,93 +151,183 @@ namespace AWSBetting
             //        Bet = "X"
             //    });
             //}
+            #endregion
 
-            _fragments = new Fragment[]
-            {
-                new HomeFragment(),
-                new ActiveBetFragment(),
-                new ClosedBetFragment(),
-                new RankingsFragment(),
-                new CalendarFragment()
-            };
+            #region ActionBar Mode
+            //ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+            //SetContentView(Resource.Layout.Main);
 
-            AddTabToActionBar(Resource.String.Home_Tab_Label);
-            AddTabToActionBar(Resource.String.ActiveBet_Tab_Label);
-            AddTabToActionBar(Resource.String.ClosedBet_Tab_Label);
-            AddTabToActionBar(Resource.String.Rankings_Tab_Label);
-            AddTabToActionBar(Resource.String.Calendars_Tab_Label);
+            //_fragments = new Fragment[]
+            //{
+            //    new HomeFragment(),
+            //    new ActiveBetFragment(),
+            //    new ClosedBetFragment(),
+            //    new RankingsFragment(),
+            //    new CalendarFragment()
+            //};
+
+            //AddTabToActionBar(Resource.String.Home_Tab_Label);
+            //AddTabToActionBar(Resource.String.ActiveBet_Tab_Label);
+            //AddTabToActionBar(Resource.String.ClosedBet_Tab_Label);
+            //AddTabToActionBar(Resource.String.Rankings_Tab_Label);
+            //AddTabToActionBar(Resource.String.Calendars_Tab_Label);
+            #endregion
+
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById
+                <Android.Support.V7.Widget.Toolbar>(Resource.Id.mainToolbar);
+
+            SetSupportActionBar(toolbar);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+
+            tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
+
+
+            tabLayout.SetTabTextColors(Android.Graphics.Color.Aqua,
+                Android.Graphics.Color.AntiqueWhite);
+
+            var viewPager = FindViewById<ViewPager>(Resource.Id.pager);
+            viewPager.Adapter = new TabsFragmentPagerAdapter(SupportFragmentManager, this);
+            //viewPager.AddOnPageChangeListener(new ProgressDialogListener(this) {
+            //});
+            tabLayout.SetupWithViewPager(viewPager);
+            //FnInitTabLayout();
+            
 
         }
 
-        private ActionBar.Tab tab;
-
-        void AddTabToActionBar(int labelResourceId)
+        void FnInitTabLayout()
         {
-             this.tab = ActionBar.NewTab()
-                .SetText(labelResourceId);           
 
-            tab.TabSelected += TabOnTabSelected;
-            ActionBar.AddTab(tab);
-               
+            #region oldcode
+            //var fragments = new List<Android.Support.V4.App.Fragment>
+            //{
+            //    new HomeFragment(),
+            //    new ActiveBetFragment(),
+            //    new ClosedBetFragment(),
+            //    new RankingsFragment(),
+            //    new CalendarFragment(),                
+            //};
+
+
+            //var titles = CharSequence.ArrayFromStringArray(new[]
+            //{
+            //    Resources.GetString(Resource.String.Home_Tab_Label),
+            //    Resources.GetString(Resource.String.ActiveBet_Tab_Label),
+            //    Resources.GetString(Resource.String.ClosedBet_Tab_Label),
+            //    Resources.GetString(Resource.String.Rankings_Tab_Label),
+            //    Resources.GetString(Resource.String.Calendars_Tab_Label)
+            //});
+            #endregion
+
+            //viewPager.Adapter = new SlidePagerAdapter(SupportFragmentManager);
+            //tabLayout.SetupWithViewPager(viewPager);
         }
 
-        void TabOnTabSelected(object sender, ActionBar.TabEventArgs tabEventArgs)
-        {
-            this.tab = sender as ActionBar.Tab;
-            Fragment frag = _fragments[tab.Position];
-            tabEventArgs.FragmentTransaction.Replace(Resource.Id.frameLayout1, frag);
+        
 
 
-        }
+        #region ACTION BAR MODE
+        //private ActionBar.Tab tab;
+
+        //void AddTabToActionBar(int labelResourceId)
+        //{
+        //     this.tab = ActionBar.NewTab()
+        //        .SetText(labelResourceId);           
+
+        //    tab.TabSelected += TabOnTabSelected;
+        //    ActionBar.AddTab(tab);
+
+        //}
+
+        //void TabOnTabSelected(object sender, ActionBar.TabEventArgs tabEventArgs)
+        //{
+        //    this.tab = sender as ActionBar.Tab;
+        //    Fragment frag = _fragments[tab.Position];
+        //    tabEventArgs.FragmentTransaction.Replace(Resource.Id.frameLayout1, frag);
+
+
+        //}
+        #endregion
 
         public override void OnBackPressed()
         {
-            //List<Team> teams = new List<Team>();
-            //try
+
+            #region ACTION BAR MODE
+            //AddBetFragment addBetFragment = FragmentManager.FindFragmentByTag("AddBet") as AddBetFragment;
+            //if (addBetFragment != null && addBetFragment.IsVisible)
             //{
-            //    teams = AWSDataAccess.GetBetTeam(0);
+            //    FragmentTransaction ft = FragmentManager.BeginTransaction();
+            //    ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
+            //    ft.Commit();
+            //    return;
             //}
-            //catch (Exception exp)
+
+            //ModifyBetFragment modBetFragment = FragmentManager.FindFragmentByTag("ModifyBet") as ModifyBetFragment;
+            //if (modBetFragment != null && modBetFragment.IsVisible)
             //{
-
-            //    teams.Add(new Team()
-            //    {
-            //        Name = exp.Message,
-            //        Bet = exp.Message
-            //    });
+            //    FragmentTransaction ft = FragmentManager.BeginTransaction();
+            //    ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
+            //    ft.Commit();
+            //    return;
             //}
-            AddBetFragment addBetFragment = FragmentManager.FindFragmentByTag("AddBet") as AddBetFragment;
-            if (addBetFragment != null && addBetFragment.IsVisible)
+
+            //CalculateBetFragment fragment = FragmentManager.FindFragmentByTag("CALCULATE") as CalculateBetFragment;
+            //if (fragment != null && fragment.IsVisible)
+            //{
+            //    FragmentTransaction ft = FragmentManager.BeginTransaction();
+            //    ft.Replace(Resource.Id.frameLayout1, new ActiveBetFragment());
+            //    ft.Commit();
+            //    return;
+            //}
+
+            //Finish();
+            //Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            #endregion
+
+
+            TabsFragmentPagerAdapter viewPager = FindViewById<ViewPager>(Resource.Id.pager).Adapter 
+                as TabsFragmentPagerAdapter;
+
+            if (viewPager.IsChildFragment)
             {
-                FragmentTransaction ft = FragmentManager.BeginTransaction();
-                ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
-                ft.Commit();
+                viewPager.RemoveFragment();
                 return;
             }
-
-            ModifyBetFragment modBetFragment = FragmentManager.FindFragmentByTag("ModifyBet") as ModifyBetFragment;
-            if (modBetFragment != null && modBetFragment.IsVisible)
-            {
-                FragmentTransaction ft = FragmentManager.BeginTransaction();
-                ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
-                ft.Commit();
-                return;
-            }
-
-            CalculateBetFragment fragment = FragmentManager.FindFragmentByTag("CALCULATE") as CalculateBetFragment;
-            if (fragment != null && fragment.IsVisible)
-            {
-                FragmentTransaction ft = FragmentManager.BeginTransaction();
-                ft.Replace(Resource.Id.frameLayout1, new ActiveBetFragment());
-                ft.Commit();
-                return;
-            }
-
             Finish();
             Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
-        
+
+
+        public class ProgressDialogListener : ViewPager.SimpleOnPageChangeListener
+        {
+            private MainActivity mainActivity;
+
+            public ProgressDialogListener(MainActivity mainActivity)
+            {
+                this.mainActivity = mainActivity;
+            }
+
+            
+
+            public override void OnPageSelected(int position)
+            {
+                //if (position == 0)
+                //{
+
+                //    var progressDialog = ProgressDialog.Show(mainActivity, "", "Creating plot", true);
+                //    progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+
+                //    progressDialog.Show();
+                //    Thread.Sleep(2000);
+                //    progressDialog.Dismiss();
+                //}
+            }
+        }
 
     }
+
+    
+
+    
 }
 

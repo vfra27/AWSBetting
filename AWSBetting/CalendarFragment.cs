@@ -11,10 +11,11 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Webkit;
+using Android.Support.V4.App;
 
 namespace AWSBetting
 {
-    public class CalendarFragment : Fragment
+    public class CalendarFragment : Android.Support.V4.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {

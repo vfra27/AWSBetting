@@ -3,12 +3,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+  <android.support.v7.widget.SwitchCompat
+    xmlns:app="http://schemas.android.com/apk/res-auto"      
+        android:text="Add bet or recharge?"
+    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rechargeSwt"
+        android:checked="true"
+        
+        android:textSize="16sp"
+        android:textOn="Bet"
+        android:textOff="RC"
+        app:showText="true"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/teamName"
         android:hint="Enter team name"
         android:layout_marginTop="40dp" />
+  <!--<EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recharge"
+        android:hint="Enter recharge amount"
+        android:layout_marginTop="40dp"
+        android:visibility="invisible"
+        />-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
