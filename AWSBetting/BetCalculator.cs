@@ -58,7 +58,7 @@ namespace AWSBetting
                     //Double.Parse(quota.Text)
                     double temp = nextBet * quota;
                     profit = temp - sum;
-                    isPositive = profit > 0;
+                    isPositive = profit >=30;
                     if (!isPositive)
                     {
                         lastBet = (int)nextBet;
