@@ -12,12 +12,15 @@ using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using Android.Support.V4.App;
+using Android.Support.V4.View;
 
 namespace AWSBetting
 {
     public class CloseBetDialogFragment : Android.Support.V4.App.DialogFragment
     {
         List<Team> activeBetTeams = new List<Team>();
+        IDialogInterfaceOnDismissListener onDismissListener;
+
 
         public static CloseBetDialogFragment NewInstance(Bundle bundle)
         {
@@ -25,6 +28,26 @@ namespace AWSBetting
             fragment.Arguments = bundle;            
             return fragment;
 
+        }
+
+
+        public void SetOnDismissListener(IDialogInterfaceOnDismissListener onDismissListener)
+        {
+
+            this.onDismissListener = onDismissListener;
+        }
+
+        public override void OnDismiss(IDialogInterface dialog)
+        {
+            base.OnDismiss(dialog);
+            //if (onDismissListener!=null)
+            //{
+            //    onDismissListener.OnDismiss(dialog);
+            //}
+
+            TabsFragmentPagerAdapter viewPagerAdapter = Activity.FindViewById<ViewPager>(Resource.Id.pager).Adapter
+                as TabsFragmentPagerAdapter;
+            viewPagerAdapter.Update();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

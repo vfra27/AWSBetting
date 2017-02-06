@@ -69,6 +69,11 @@ namespace AWSBetting
             NotifyDataSetChanged();
         }
 
+        public void Update()
+        {
+            NotifyDataSetChanged();
+        }
+
         public override int Count
         {
             get

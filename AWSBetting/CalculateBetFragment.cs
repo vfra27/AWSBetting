@@ -13,6 +13,7 @@ using Android.Widget;
 using Android.Views.InputMethods;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
+using Android.Support.V7.App;
 
 namespace AWSBetting
 {
@@ -32,6 +33,11 @@ namespace AWSBetting
 
             View view = inflater.Inflate(Resource.Layout.CalculateBet, null);
 
+            
+            //((AppCompatActivity)Activity).SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //((AppCompatActivity)Activity).SupportActionBar.SetHomeButtonEnabled(true);            
+
+
             List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(TeamId);
             string history = string.Empty;
 
@@ -46,13 +52,14 @@ namespace AWSBetting
 
             view.FindViewById<EditText>(Resource.Id.History).Text = history;
 
-            view.FindViewById<EditText>(Resource.Id.Quote).FixDigits();
+            view.FindViewById<EditText>(Resource.Id.Odds).FixDigits();
             Button calculateBtn = view.FindViewById<Button>(Resource.Id.Calculate);
             EditText historyTxt = view.FindViewById<EditText>(Resource.Id.History);
-            EditText quote = view.FindViewById<EditText>(Resource.Id.Quote);
+            EditText odds = view.FindViewById<EditText>(Resource.Id.Odds);
             EditText nextbet = view.FindViewById<EditText>(Resource.Id.NextBet);
             EditText profit = view.FindViewById<EditText>(Resource.Id.Profit);
-            EditText offset = view.FindViewById<EditText>(Resource.Id.Offset);
+            EditText teamName = view.FindViewById<EditText>(Resource.Id.TeamName);
+            teamName.Text = TeamName;  
             Button saveBetBtn = view.FindViewById<Button>(Resource.Id.SaveBet);
 
 
@@ -60,6 +67,22 @@ namespace AWSBetting
             {
                 if (nextbet.Text != String.Empty)
                 {
+
+                    if (!string.Equals(TeamName,teamName.Text,StringComparison.OrdinalIgnoreCase))
+                    {
+                        Team t = new Team()
+                        {
+                            Id = TeamId,
+                            Name = teamName.Text                                                       
+                        };
+                        if (AWSDataAccess.UpdateTeamName(t)== Guid.Empty)
+                        {
+                            Toast.MakeText(Activity, "Error in team updating", ToastLength.Long).Show();
+                            return;
+                        }
+                        
+                    }
+
                     BetDetails newBet = new BetDetails()
                     {
                         Id = Guid.NewGuid(),
@@ -103,18 +126,18 @@ namespace AWSBetting
                 }
 
                 //&& offset.Text != string.Empty
-                if (historyTxt.Text != string.Empty && quote.Text != string.Empty)
+                if (historyTxt.Text != string.Empty && odds.Text != string.Empty)
                 {
                     BettingPerding result = new BettingPerding();
 
                     int offsetVal=0;
-                    if (offset.Text!= string.Empty)
-                    {
-                        Int32.Parse(offset.Text);
-                    }
+                    //if (offset.Text!= string.Empty)
+                    //{
+                    //    Int32.Parse(offset.Text);
+                    //}
 
                     result = BetCalculator.Calculate(historyTxt.Text,
-                        Double.Parse(quote.Text), 0, offsetVal);
+                        Double.Parse(odds.Text), 0, offsetVal);
 
                     //nextbet.SetText(ciccio.ToString(),TextView.BufferType.Normal);
                     profit.Text = "" + result.Profit;
@@ -122,7 +145,7 @@ namespace AWSBetting
                 }
                 else
                 {
-                    quote.Error = "Requested";
+                    odds.Error = "Requested";
                     //offset.Error = "Requested";
                 }
 
@@ -134,14 +157,14 @@ namespace AWSBetting
             {
                 //&& offset.Text != string.Empty
 
-                if (historyTxt.Text!=string.Empty && quote.Text!=string.Empty )
+                if (historyTxt.Text!=string.Empty && odds.Text!=string.Empty )
                 {
                     BettingPerding result = new BettingPerding();
                     int offsetValue = 0;
-                    if (offset.Text!=string.Empty)
-                    {
-                        offsetValue = Int32.Parse(offset.Text);
-                    }
+                    //if (offset.Text!=string.Empty)
+                    //{
+                    //    offsetValue = Int32.Parse(offset.Text);
+                    //}
 
                     double next = 0;
                     if (!String.IsNullOrEmpty(nextbet.Text))
@@ -149,7 +172,7 @@ namespace AWSBetting
                         next = Double.Parse(nextbet.Text);
                     }
                     result = BetCalculator.Calculate(historyTxt.Text,
-                        Double.Parse(quote.Text), next, offsetValue);
+                        Double.Parse(odds.Text), next, offsetValue);
 
 
                     profit.Text = "" + result.Profit;
@@ -164,7 +187,14 @@ namespace AWSBetting
             return view;
         }
 
-        
+
+        public string TeamName
+        {
+            get {
+                return Arguments.GetString("Name");
+            }
+                
+        }
 
 
         public Guid TeamId

@@ -2054,17 +2054,17 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060082
 			public const int NextBet = 2131099778;
 			
-			// aapt resource value: 0x7f06007f
-			public const int Offset = 2131099775;
+			// aapt resource value: 0x7f06007e
+			public const int Odds = 2131099774;
 			
 			// aapt resource value: 0x7f060084
 			public const int Profit = 2131099780;
 			
-			// aapt resource value: 0x7f06007e
-			public const int Quote = 2131099774;
-			
 			// aapt resource value: 0x7f060085
 			public const int SaveBet = 2131099781;
+			
+			// aapt resource value: 0x7f06007f
+			public const int TeamName = 2131099775;
 			
 			// aapt resource value: 0x7f0600a8
 			public const int action0 = 2131099816;

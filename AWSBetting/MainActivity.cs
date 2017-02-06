@@ -176,8 +176,10 @@ namespace AWSBetting
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById
                 <Android.Support.V7.Widget.Toolbar>(Resource.Id.mainToolbar);
 
+            
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+            //SupportActionBar.SetHomeButtonEnabled(true);
 
             tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
 

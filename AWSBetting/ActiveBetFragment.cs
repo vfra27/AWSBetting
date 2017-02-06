@@ -150,6 +150,7 @@ namespace AWSBetting
         {
             var calculateBetFragment = new CalculateBetFragment() { Arguments = new Bundle() };
             calculateBetFragment.Arguments.PutString("PID", teams[e.Position-1].Id.ToString());
+            calculateBetFragment.Arguments.PutString("Name", teams[e.Position - 1].Name);
             //Android.Support.V4.App.FragmentTransaction ft = this.Activity.SupportFragmentManager.BeginTransaction();
             //ft.Replace(Resource.Id.root_frame, calculateBetFragment,"CALCULATE");
             //ft.Commit();

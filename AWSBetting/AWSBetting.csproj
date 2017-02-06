@@ -79,6 +79,9 @@
       <HintPath>..\packages\AWSSDK.SecurityToken.3.3.0.3\lib\MonoAndroid10\AWSSDK.SecurityToken.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataAccess">
+      <HintPath>..\..\DataAccess\DataAccess\bin\Release\DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />

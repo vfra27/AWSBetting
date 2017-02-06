@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/History" />
     <TextView
-        android:text="Quote"
+        android:text="Odds"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,15 +24,14 @@
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Quote"
+        android:id="@+id/Odds"
         android:layout_marginRight="0.0dp"
         android:digits="0123456789.," />
+<!--android:hint="Enter offset"android:numeric="integer"-->
     <EditText
-        android:hint="Enter offset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Offset"
-        android:numeric="integer" />
+        android:id="@+id/TeamName" />
     <Button
         android:text="Calculate"
         android:layout_width="match_parent"

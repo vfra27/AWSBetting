@@ -294,7 +294,7 @@ namespace AWSBetting
                         CloseBetDialogFragment newFragment = CloseBetDialogFragment.NewInstance(null);
                         newFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
                         //newFragment.Arguments.PutString("TEAMID",)
-
+                        //newFragment.SetOnDismissListener();
                         //Add fragment
                         newFragment.Show(ft, "closeBetDialog");
                         break;
@@ -476,6 +476,27 @@ namespace AWSBetting
 
     }
 
+    class CustomDialogInterface : IDialogInterfaceOnDismissListener
+    {
+        public IntPtr Handle
+        {
+            get
+            {
+                return IntPtr.Zero;
+            }
+        }
+
+        public void Dispose()
+        {
+            
+        }
+
+        public void OnDismiss(IDialogInterface dialog)
+        {
+
+            // update grafico
+        }
+    }
 
     class Rectangle : View
     {
