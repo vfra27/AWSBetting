@@ -63,7 +63,6 @@ namespace AWSBetting
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.Home, container, false);
 
-            string model = Build.Model;
             #region oldcode
             //Button newBetBtn = view.FindViewById<Button>(Resource.Id.newBetBtn);
             //Button closeBetBtn = view.FindViewById<Button>(Resource.Id.closeBetBtn);
@@ -125,12 +124,15 @@ namespace AWSBetting
             // };
             #endregion
             #endregion
-            if (model.StartsWith("frd", StringComparison.CurrentCultureIgnoreCase))
-            {
-                ApplicationState.ActiveProvider = BetProvider.Bet365;
+            #region model manag
+            //string model = Build.Model;
+            
+            //if (model.StartsWith("frd", StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    ApplicationState.ActiveProvider = BetProvider.Bet365;
 
-            }
-
+            //}
+            #endregion
 
 
             List<Team> closedTeam = AWSDataAccess.GetBetTeam(1);
@@ -221,9 +223,9 @@ namespace AWSBetting
 
             }
 
-            
 
-                        
+
+
             //float percentComplete = (float)Math.Round((100 * winnedMoney) / spentMoney);
 
 
@@ -232,90 +234,91 @@ namespace AWSBetting
 
 
 
-
-            var editToolbar = view.FindViewById<Toolbar>(Resource.Id.edit_toolbar);
-            editToolbar.Title = "Editing";
-            editToolbar.InflateMenu(Resource.Menu.edit_menus);
-
-
-            if (model.StartsWith("frd", StringComparison.CurrentCultureIgnoreCase))
-            {
-
-                editToolbar.Menu.FindItem(Resource.Id.menu_preferences).SetVisible(true);
-                //ApplicationState.ActiveProvider = BetProvider.Bet365;
+            #region Edit toolbar
+            //var editToolbar = view.FindViewById<Toolbar>(Resource.Id.edit_toolbar);
+            //editToolbar.Title = "Editing";
+            //editToolbar.InflateMenu(Resource.Menu.edit_menus);
 
 
-            }
-            else
-            {
-                editToolbar.Menu.FindItem(Resource.Id.menu_preferences).SetVisible(false);
-            }
+            //if (model.StartsWith("frd", StringComparison.CurrentCultureIgnoreCase))
+            //{
+
+            //    editToolbar.Menu.FindItem(Resource.Id.menu_preferences).SetVisible(true);
+            //    //ApplicationState.ActiveProvider = BetProvider.Bet365;
+
+
+            //}
+            //else
+            //{
+            //    editToolbar.Menu.FindItem(Resource.Id.menu_preferences).SetVisible(false);
+            //}
 
 
 
-            editToolbar.MenuItemClick += (sender, e) =>
-            {
-                Android.Support.V4.App.FragmentTransaction ft;
-                switch (e.Item.ItemId)
-                {
-                    case Resource.Id.menu_create:
-                        var addBetFragment = new AddBetFragment() { Arguments = new Bundle() };
-                        //calculateBetFragment.Arguments.PutString("PID", teams[e.Position - 1].Id.ToString());                        
-                        TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
-                        (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
-                        //ft = this.Activity.SupportFragmentManager.BeginTransaction();
-                        //ft.Replace(Resource.Id.root_frame, addBetFragment, "AddBet");
-                        //ft.Commit();                        
-                        adapter.AddFragment(addBetFragment, 0);
-                        break;
-                    case Resource.Id.menu_edit:
-                        var modBetFragment = new ModifyBetFragment() { Arguments = new Bundle() };
-                        //calculateBetFragment.Arguments.PutString("PID", teams[e.Position - 1].Id.ToString());
-                        //ft = this.Activity.SupportFragmentManager.BeginTransaction();
-                        //ft.Replace(Resource.Id.frameLayout1, modBetFragment, "ModifyBet");
-                        TabsFragmentPagerAdapter adp = Activity.FindViewById<ViewPager>
-                        (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
-                        adp.AddFragment(modBetFragment, 0);
-                        //ft.Commit();
-                        break;
-                    case Resource.Id.menu_close:
-                        ft = this.Activity.SupportFragmentManager.BeginTransaction();
-                        //Remove fragment else it will crash as it is already added to backstack
-                        Android.Support.V4.App.Fragment prev = this.Activity.SupportFragmentManager
-                        .FindFragmentByTag("closeBetDialog");
-                        if (prev != null)
-                        {
-                            ft.Remove(prev);
-                        }
+            //editToolbar.MenuItemClick += (sender, e) =>
+            //{
+            //    Android.Support.V4.App.FragmentTransaction ft;
+            //    switch (e.Item.ItemId)
+            //    {
+            //        case Resource.Id.menu_create:
+            //            var addBetFragment = new AddBetFragment() { Arguments = new Bundle() };
+            //            //calculateBetFragment.Arguments.PutString("PID", teams[e.Position - 1].Id.ToString());                        
+            //            TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+            //            (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+            //            //ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            //            //ft.Replace(Resource.Id.root_frame, addBetFragment, "AddBet");
+            //            //ft.Commit();                        
+            //            adapter.AddFragment(addBetFragment, 0);
+            //            break;
+            //        case Resource.Id.menu_edit:
+            //            var modBetFragment = new ModifyBetFragment() { Arguments = new Bundle() };
+            //            //calculateBetFragment.Arguments.PutString("PID", teams[e.Position - 1].Id.ToString());
+            //            //ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            //            //ft.Replace(Resource.Id.frameLayout1, modBetFragment, "ModifyBet");
+            //            TabsFragmentPagerAdapter adp = Activity.FindViewById<ViewPager>
+            //            (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+            //            adp.AddFragment(modBetFragment, 0);
+            //            //ft.Commit();
+            //            break;
+            //        case Resource.Id.menu_close:
+            //            ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            //            //Remove fragment else it will crash as it is already added to backstack
+            //            Android.Support.V4.App.Fragment prev = this.Activity.SupportFragmentManager
+            //            .FindFragmentByTag("closeBetDialog");
+            //            if (prev != null)
+            //            {
+            //                ft.Remove(prev);
+            //            }
 
-                        ft.AddToBackStack(null);
+            //            ft.AddToBackStack(null);
 
-                        // Create and show the dialog.
-                        CloseBetDialogFragment newFragment = CloseBetDialogFragment.NewInstance(null);
-                        newFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
-                        //newFragment.Arguments.PutString("TEAMID",)
-                        //newFragment.SetOnDismissListener();
-                        //Add fragment
-                        newFragment.Show(ft, "closeBetDialog");
-                        break;
+            //            // Create and show the dialog.
+            //            CloseBetDialogFragment newFragment = CloseBetDialogFragment.NewInstance(null);
+            //            newFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
+            //            //newFragment.Arguments.PutString("TEAMID",)
+            //            //newFragment.SetOnDismissListener();
+            //            //Add fragment
+            //            newFragment.Show(ft, "closeBetDialog");
+            //            break;
 
-                    case Resource.Id.menu_preferences:
-                        ft = this.Activity.SupportFragmentManager.BeginTransaction();
-                        Android.Support.V4.App.Fragment p = this.Activity.SupportFragmentManager
-                        .FindFragmentByTag("providerChoiceDialog");
-                        if (p != null)
-                        {
-                            ft.Remove(p);
-                        }
-                        ft.AddToBackStack(null);
-                        ProviderChoiceFragment pcFragment = ProviderChoiceFragment.NewInstance(null);
-                        pcFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
-                        pcFragment.Show(ft, "providerChoiceDialog");
-                        break;
-                    default:
-                        break;
-                }
-            };
+            //        case Resource.Id.menu_preferences:
+            //            ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            //            Android.Support.V4.App.Fragment p = this.Activity.SupportFragmentManager
+            //            .FindFragmentByTag("providerChoiceDialog");
+            //            if (p != null)
+            //            {
+            //                ft.Remove(p);
+            //            }
+            //            ft.AddToBackStack(null);
+            //            ProviderChoiceFragment pcFragment = ProviderChoiceFragment.NewInstance(null);
+            //            pcFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
+            //            pcFragment.Show(ft, "providerChoiceDialog");
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //};
+            #endregion
             return view;
         }
 

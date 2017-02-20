@@ -4,5 +4,9 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:theme="@style/DesignTheme" android:label="BettingPerding" android:icon="@drawable/profit"></application> 
+	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+	<application android:theme="@style/DesignTheme" android:label="BettingPerding" android:icon="@drawable/profit"></application>
 </manifest>

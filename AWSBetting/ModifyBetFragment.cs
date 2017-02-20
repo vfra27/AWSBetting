@@ -199,8 +199,12 @@ namespace AWSBetting
                             };
                             if (AWSDataAccess.UpdateBetTeamDetail(modifiedTeamDetail) != Guid.Empty)
                             {
-                                Toast.MakeText(Activity, "Bet updated", ToastLength.Long).Show();
-                                BackHome();
+                                Intent intent = new Intent();
+                                intent.PutExtra("type", Resources.GetString(Resource.String.modifyBet));
+                                Activity.SetResult(Result.Ok, intent);
+                                Activity.Finish();
+                                //Toast.MakeText(Activity, "Bet updated", ToastLength.Long).Show();
+                                //BackHome();
                             }
                             else
                             {
@@ -223,8 +227,12 @@ namespace AWSBetting
                             };
                             if (AWSDataAccess.DeleteBetDetail(modifiedTeamDetail))
                             {
-                                Toast.MakeText(Activity, "Bet deleted", ToastLength.Long).Show();
-                                BackHome();
+                                Intent intent = new Intent();
+                                intent.PutExtra("type", Resources.GetString(Resource.String.deleteBet));
+                                Activity.SetResult(Result.Ok, intent);
+                                Activity.Finish();
+                                //Toast.MakeText(Activity, "Bet deleted", ToastLength.Long).Show();
+                                //BackHome();
                             }
                             else
                             {
@@ -245,8 +253,13 @@ namespace AWSBetting
 
                         if (AWSDataAccess.DeleteAllBetTeam(t))
                         {
-                            Toast.MakeText(Activity, "All team bet deleted", ToastLength.Long).Show();
-                            BackHome();
+                            Intent intent = new Intent();
+                            intent.PutExtra("type", Resources.GetString(Resource.String.deleteAllBetTeam));
+                            Activity.SetResult(Result.Ok, intent);
+                            Activity.Finish();
+
+                            //Toast.MakeText(Activity, "All team bet deleted", ToastLength.Long).Show();
+                            //BackHome();
                         }
                         else
                         {

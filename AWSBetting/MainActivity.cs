@@ -19,24 +19,38 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using System.Threading;
+using Android.Provider;
+using Android.Accounts;
 
 namespace AWSBetting
 {
-    [Activity(Label = "BettingPerding", MainLauncher = true, Icon = "@drawable/profit", 
-        WindowSoftInputMode =SoftInput.AdjustPan)]
-    public class MainActivity : AppCompatActivity
+    [Activity(Label = "BettingPerding", MainLauncher = true, Icon = "@drawable/profit",
+        WindowSoftInputMode = SoftInput.AdjustPan)]
+    public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
-        int count = 1;
+        //int count = 1;
 
-        static readonly string Tag = "ActionBarTabsSupport";
+        //static readonly string Tag = "ActionBarTabsSupport";
+        private static readonly int TIME_INTERVAL = 2000;
+        private long mBackPressed;
         //Fragment[] _fragments;
 
         TabLayout tabLayout;
-                      
+        DrawerLayout drawer;
+        NavigationView navigationView;
+
+        protected override void OnRestart()
+        {
+            if (navigationView != null)
+            {
+                navigationView.Menu.FindItem(Resource.Id.nav_home).SetChecked(true);                
+            }
+            base.OnRestart();
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
-            
+
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
@@ -175,11 +189,16 @@ namespace AWSBetting
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById
                 <Android.Support.V7.Widget.Toolbar>(Resource.Id.mainToolbar);
+            drawer = FindViewById<DrawerLayout>(Resource.Id.drawerLayout);
 
-            
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             //SupportActionBar.SetHomeButtonEnabled(true);
+
+            Android.Support.V7.App.ActionBarDrawerToggle toggle = new Android.Support.V7.App.ActionBarDrawerToggle(this,
+                drawer, toolbar, Resource.String.Navigation_drawer_open, Resource.String.Navigation_drawer_close);
+            drawer.AddDrawerListener(toggle);
+            toggle.SyncState();
 
             tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
 
@@ -193,9 +212,35 @@ namespace AWSBetting
             //});
             tabLayout.SetupWithViewPager(viewPager);
             //FnInitTabLayout();
+
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+
+            navigationView.Menu.FindItem(Resource.Id.nav_home).SetChecked(true);
+
+            string model = Build.Model;
+            if (model.StartsWith("frd", StringComparison.CurrentCultureIgnoreCase))
+            {
+                ApplicationState.ActiveProvider = BetProvider.Bet365; //MODIFY only first run
+                navigationView.Menu.FindItem(Resource.Id.nav_preferences).SetVisible(true);
+            }
+            else
+            {
+                navigationView.Menu.FindItem(Resource.Id.nav_preferences).SetVisible(false);
+            }
+            navigationView.SetNavigationItemSelectedListener(this);
             
 
+            //ManageToast();
+
+            //Account[] accounts = AccountManager.Get(this).GetAccountsByType("com.google");
+            AccountManager manager = GetSystemService(AccountService) as AccountManager;
+            Account[] list = manager.GetAccounts();
+
+            
         }
+
+
+       
 
         void FnInitTabLayout()
         {
@@ -225,7 +270,7 @@ namespace AWSBetting
             //tabLayout.SetupWithViewPager(viewPager);
         }
 
-        
+
 
 
         #region ACTION BAR MODE
@@ -286,19 +331,126 @@ namespace AWSBetting
             //Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
             #endregion
 
-
-            TabsFragmentPagerAdapter viewPager = FindViewById<ViewPager>(Resource.Id.pager).Adapter 
+            if (drawer != null && drawer.IsDrawerOpen(GravityCompat.Start))
+            {
+                drawer.CloseDrawer(GravityCompat.Start);
+            }
+            else
+            {
+                TabsFragmentPagerAdapter viewPager = FindViewById<ViewPager>(Resource.Id.pager).Adapter
                 as TabsFragmentPagerAdapter;
 
-            if (viewPager.IsChildFragment)
-            {
-                viewPager.RemoveFragment();
-                return;
+                if (viewPager.IsChildFragment)
+                {
+                    viewPager.RemoveFragment();
+                    return;
+                }
+
+
+
+                if (mBackPressed + TIME_INTERVAL > DateTime.Now.Millisecond)
+                {
+                    Finish();
+                    Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+                }
+                else
+                {
+                    Toast.MakeText(this, "Tap back 2 time to exit", ToastLength.Short).Show();
+                }
+                mBackPressed = DateTime.Now.Millisecond;
+
             }
-            Finish();
-            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+
+
         }
 
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            if (resultCode== Result.Ok)
+            {
+                string msg = data.GetStringExtra("type");
+                Toast.MakeText(this, msg, ToastLength.Long).Show();
+                TabsFragmentPagerAdapter adapter = FindViewById<ViewPager>
+                        (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+                adapter.Update();
+            }
+
+
+        }
+
+        public bool OnNavigationItemSelected(IMenuItem menuItem)
+        {
+            Android.Support.V4.App.FragmentTransaction ft;
+            switch (menuItem.ItemId)
+            {
+                
+
+                case Resource.Id.nav_create:
+                    Intent intent = new Intent(this, typeof(SecondaryActivity));
+                    intent.PutExtra("fragmentNumber", 1);
+                    StartActivityForResult(intent,0);
+
+
+                    #region viewpager mode
+                    //var addBetFragment = new AddBetFragment() { Arguments = new Bundle() };
+                    ////calculateBetFragment.Arguments.PutString("PID", teams[e.Position - 1].Id.ToString());                        
+                    //TabsFragmentPagerAdapter adapter = FindViewById<ViewPager>
+                    //(Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;                                            
+                    //adapter.AddFragment(addBetFragment, 0);
+                    #endregion
+                    break;
+                case Resource.Id.nav_edit:
+                    Intent intent2 = new Intent(this, typeof(SecondaryActivity));
+                    intent2.PutExtra("fragmentNumber", 2);
+                    StartActivityForResult(intent2,1);
+
+                    #region viewpager mode
+                    //var modBetFragment = new ModifyBetFragment() { Arguments = new Bundle() };                    
+                    //TabsFragmentPagerAdapter adp = FindViewById<ViewPager>
+                    //(Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+                    //adp.AddFragment(modBetFragment, 0);
+                    #endregion
+                    break;
+                case Resource.Id.nav_close:
+                    ft = SupportFragmentManager.BeginTransaction();
+                    //Remove fragment else it will crash as it is already added to backstack
+                    Android.Support.V4.App.Fragment prev = SupportFragmentManager
+                    .FindFragmentByTag("closeBetDialog");
+                    if (prev != null)
+                    {
+                        ft.Remove(prev);
+                    }
+
+                    ft.AddToBackStack(null);
+
+                    // Create and show the dialog.
+                    CloseBetDialogFragment newFragment = CloseBetDialogFragment.NewInstance(null);
+                    newFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
+                    //Add fragment
+                    newFragment.Show(ft, "closeBetDialog");
+                    break;
+                case Resource.Id.nav_preferences:
+                    ft = SupportFragmentManager.BeginTransaction();
+                    Android.Support.V4.App.Fragment p = SupportFragmentManager
+                    .FindFragmentByTag("providerChoiceDialog");
+                    if (p != null)
+                    {
+                        ft.Remove(p);
+                    }
+                    ft.AddToBackStack(null);
+                    ProviderChoiceFragment pcFragment = ProviderChoiceFragment.NewInstance(null);
+                    pcFragment.SetStyle(Android.Support.V4.App.DialogFragment.StyleNormal, Resource.Style.CustomDialog);
+                    pcFragment.Show(ft, "providerChoiceDialog");
+                    break;
+                default:
+                    break;
+            }
+            drawer.CloseDrawer(GravityCompat.Start);
+            return true;
+
+        }
+        
 
         public class ProgressDialogListener : ViewPager.SimpleOnPageChangeListener
         {
@@ -309,7 +461,7 @@ namespace AWSBetting
                 this.mainActivity = mainActivity;
             }
 
-            
+
 
             public override void OnPageSelected(int position)
             {
@@ -328,8 +480,8 @@ namespace AWSBetting
 
     }
 
-    
 
-    
+
+
 }
 

@@ -8,4 +8,13 @@
   <string name="Rankings_Tab_Label">Ranking</string>
   <string name="Calendars_Tab_Label">Calendar</string>
   <string name="teams_prompt">Choose a team</string>
+  <string name="Navigation_drawer_open">Open</string>
+  <string name="Navigation_drawer_close">Close</string>
+  <string name="cd_navdrawer_image">Navigation Drawer Image</string>
+  <string name="cd_navdrawer_user_picture">User Profile Image</string>
+  <string name="addBet">Bet added</string>
+  <string name="modifyBet">Bet updated</string>
+  <string name="deleteAllBetTeam">All team bet deleted</string>
+  <string name="deleteBet">Bet deleted</string>
+  <string name="calculateBet">Bet saved</string>
 </resources>

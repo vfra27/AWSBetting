@@ -148,15 +148,23 @@ namespace AWSBetting
 
         private void ActiveBetFragment_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var calculateBetFragment = new CalculateBetFragment() { Arguments = new Bundle() };
-            calculateBetFragment.Arguments.PutString("PID", teams[e.Position-1].Id.ToString());
-            calculateBetFragment.Arguments.PutString("Name", teams[e.Position - 1].Name);
-            //Android.Support.V4.App.FragmentTransaction ft = this.Activity.SupportFragmentManager.BeginTransaction();
-            //ft.Replace(Resource.Id.root_frame, calculateBetFragment,"CALCULATE");
-            //ft.Commit();
-            TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
-                        (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
-            adapter.AddFragment(calculateBetFragment,1);
+            Intent intent = new Intent(Activity, typeof(SecondaryActivity));
+            intent.PutExtra("fragmentNumber", 3);
+            intent.PutExtra("PID", teams[e.Position - 1].Id.ToString());
+            intent.PutExtra("Name", teams[e.Position - 1].Name);
+            StartActivityForResult(intent,2);
+
+            #region viewpager mode
+            //var calculateBetFragment = new CalculateBetFragment() { Arguments = new Bundle() };
+            //calculateBetFragment.Arguments.PutString("PID", teams[e.Position-1].Id.ToString());
+            //calculateBetFragment.Arguments.PutString("Name", teams[e.Position - 1].Name);
+            ////Android.Support.V4.App.FragmentTransaction ft = this.Activity.SupportFragmentManager.BeginTransaction();
+            ////ft.Replace(Resource.Id.root_frame, calculateBetFragment,"CALCULATE");
+            ////ft.Commit();
+            //TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+            //            (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+            //adapter.AddFragment(calculateBetFragment,1);
+            #endregion
         }
     }
 

@@ -100,16 +100,29 @@ namespace AWSBetting
                              betDetails.Team_Id = t.Id;
                              if (AWSDataAccess.InsertBetDetails(betDetails) != Guid.Empty)
                              {
-                                 Toast.MakeText(Activity, "Bet added", ToastLength.Long).Show();
-                                 TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
-                                 (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+
+                                 Intent intent = new Intent();
+                                 intent.PutExtra("type", Resources.GetString(Resource.String.addBet));                                 
+                                 Activity.SetResult(Result.Ok, intent);
+                                 Activity.Finish();
+
+                                 #region old code
+                                 //Intent intent = new Intent(Activity, typeof(MainActivity));
+                                 //intent.PutExtra("result", true);
+
+                                 //Toast.MakeText(Activity, "Bet added", ToastLength.Long).Show();
+                                 //TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+                                 //(Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
+                                 //adapter.RemoveFragment();
+
                                  //Android.Support.V4.App.FragmentTransaction ft = FragmentManager.BeginTransaction();
                                  //ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
                                  //ft.Commit();
-                                 adapter.RemoveFragment();
+                                 #endregion
                              }
                              else
                              {
+
                                  Toast.MakeText(Activity, "Error in bet saving", ToastLength.Long).Show();
 
                              }

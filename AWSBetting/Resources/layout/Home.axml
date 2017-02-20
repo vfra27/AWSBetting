@@ -32,21 +32,21 @@
         p1:layout_centerHorizontal="true"
         p1:visibility="invisible" />-->
 <!---->
-    <Toolbar
+<!--<Toolbar
         p1:minHeight="?android:attr/actionBarSize"
         p1:background="?android:attr/colorPrimary"
         p1:layout_width="fill_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/edit_toolbar"
-        p1:layout_alignParentBottom="true" />
+        p1:layout_alignParentBottom="true" />-->
     <LinearLayout
         p1:orientation="horizontal"
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="fill_parent"
-        p1:layout_height="420dp"
+        p1:layout_height="match_parent"
         p1:id="@+id/balanceLayout">
-    <!--p1:layout_centerInParent="true"-->
+    <!-- 420dp p1:layout_centerInParent="true"-->
         <OxyPlot.Xamarin.Android.PlotView
             p1:id="@+id/plot_view"
             p1:layout_width="match_parent"
