@@ -13,8 +13,16 @@
   <string name="cd_navdrawer_image">Navigation Drawer Image</string>
   <string name="cd_navdrawer_user_picture">User Profile Image</string>
   <string name="addBet">Bet added</string>
+  <string name="addRecharge">Recharge added</string>
   <string name="modifyBet">Bet updated</string>
   <string name="deleteAllBetTeam">All team bet deleted</string>
   <string name="deleteBet">Bet deleted</string>
   <string name="calculateBet">Bet saved</string>
+  <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access.</string>
+  <string name="todayBet365OddsUrl">https://mobile.bet365.it/#type=Splash;key=1;ip=0;lng=6</string>
+  <string name="todayPaddyPowerOddsUrl">http://www.paddypower.it/scommesse-calcio/partite/tutti-gli-incontri?ev=hp_gettonate</string>
+  <string name="profitPlot">Profit plot</string>
+  <string name="adding">Adding</string>
+  <string name="editing">Editing</string>
+  <string name="calculating">Calculating</string>
 </resources>

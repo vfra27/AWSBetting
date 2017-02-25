@@ -21,12 +21,18 @@ using Android.Support.V7.Widget;
 using System.Threading;
 using Android.Provider;
 using Android.Accounts;
+using Android.Database;
+using System.Threading.Tasks;
+using Android;
+using Android.Util;
+using Android.Support.V4.Content;
+using Android.Content.PM;
 
 namespace AWSBetting
 {
     [Activity(Label = "BettingPerding", MainLauncher = true, Icon = "@drawable/profit",
         WindowSoftInputMode = SoftInput.AdjustPan)]
-    public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener,ActivityCompat.IOnRequestPermissionsResultCallback
     {
         //int count = 1;
 
@@ -38,6 +44,7 @@ namespace AWSBetting
         TabLayout tabLayout;
         DrawerLayout drawer;
         NavigationView navigationView;
+
 
         protected override void OnRestart()
         {
@@ -55,6 +62,8 @@ namespace AWSBetting
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            View layout = FindViewById(Resource.Id.main_layout);
+
 
             // Get our button from the layout resource,
             // and attach an event to it
@@ -191,6 +200,11 @@ namespace AWSBetting
                 <Android.Support.V7.Widget.Toolbar>(Resource.Id.mainToolbar);
             drawer = FindViewById<DrawerLayout>(Resource.Id.drawerLayout);
 
+            //var progressDialog = ProgressDialog.Show(this, "", "Loading", false);
+            //progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);            
+            //progressDialog.Show();
+            
+
             SetSupportActionBar(toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(false);
             //SupportActionBar.SetHomeButtonEnabled(true);
@@ -230,17 +244,99 @@ namespace AWSBetting
             navigationView.SetNavigationItemSelectedListener(this);
             
 
-            //ManageToast();
-
-            //Account[] accounts = AccountManager.Get(this).GetAccountsByType("com.google");
             AccountManager manager = GetSystemService(AccountService) as AccountManager;
-            Account[] list = manager.GetAccounts();
+            Account[] list = manager.GetAccountsByType("com.google");
 
-            
+            if (list.Length>0)
+            {
+                View drLayout = navigationView.GetHeaderView(0);
+                TextView email = drLayout.FindViewById<TextView>(Resource.Id.txtViewEmail);
+                TextView userName = drLayout.FindViewById<TextView>(Resource.Id.txtViewName);
+                string name = list[0].Name;
+                email.Text = name;
+                userName.Text = name.Split('@')[0].ToUpper();
+
+            }
+            //progressDialog.Dismiss();
+            #region check and request permissions
+            // The first works, app only needs GETACCOUNTS permission
+            //Android.Content.PM.Permission p = ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccountManager);
+            //Android.Content.PM.Permission g = ContextCompat.CheckSelfPermission(this, Manifest.Permission.GetAccounts);
+
+            ////                || ContextCompat.CheckSelfPermission(this, Manifest.Permission.GetAccounts) != Android.Content.PM.Permission.Granted
+            //if (ContextCompat.CheckSelfPermission(this,Manifest.Permission.AccountManager)!= Android.Content.PM.Permission.Granted)
+            //{
+            //    if (
+            //        ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccountManager))
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        ActivityCompat.RequestPermissions(this, ACCOUNTS, REQUEST_ACCOUNTS);
+            //    }
+            //}
+            //////////////////////////////////////////////////////
+            //if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.GetAccounts)
+            //    && ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccountManager))
+            //{
+
+            //    // Provide an additional rationale to the user if the permission was not granted
+            //    // and the user would benefit from additional context for the use of the permission.
+            //    // For example, if the request has been denied previously.
+            //    Log.Info("MainActivity", "Displaying contacts permission rationale to provide additional context.");
+
+            //    // Display a SnackBar with an explanation and a button to trigger the request.
+            //    Snackbar.Make(layout, Resource.String.permission_contacts_rationale,
+            //        Snackbar.LengthIndefinite).SetAction("Ok", new Action<View>(delegate (View obj) {
+            //            ActivityCompat.RequestPermissions(this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+            //        })).Show();
+            //}
+            //else
+            //{
+            //    // Contact permissions have not been granted yet. Request them directly.
+            //    ActivityCompat.RequestPermissions(this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+            //}
+            #endregion
         }
 
+        
 
-       
+
+
+        #region permissions fields
+        //static string[] PERMISSIONS_CONTACT = {
+        //    Manifest.Permission.ReadContacts,
+        //    Manifest.Permission.WriteContacts
+        //};
+        ////Manifest.Permission.GetAccounts
+        //static string[] ACCOUNTS =
+        //{
+        //    Manifest.Permission.AccountManager
+
+        //};
+        //static readonly int REQUEST_ACCOUNTS = 1;
+        #endregion
+
+
+        #region request permission callback
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        //{
+
+        //    switch (requestCode)
+        //    {
+        //        case 1:
+        //            if (grantResults.Length>0 && grantResults[0] == Permission.Granted)
+        //            {
+        //                AccountManager manager = GetSystemService(AccountService) as AccountManager;
+        //                Account[] list = manager.GetAccounts();
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        #endregion
 
         void FnInitTabLayout()
         {
@@ -296,6 +392,8 @@ namespace AWSBetting
         //}
         #endregion
 
+        
+        
         public override void OnBackPressed()
         {
 
@@ -384,7 +482,12 @@ namespace AWSBetting
             Android.Support.V4.App.FragmentTransaction ft;
             switch (menuItem.ItemId)
             {
-                
+
+                case Resource.Id.nav_plot:
+                    Intent intentP = new Intent(this, typeof(SecondaryActivity));
+                    intentP.PutExtra("fragmentNumber", 4);
+                    StartActivity(intentP);
+                    break;
 
                 case Resource.Id.nav_create:
                     Intent intent = new Intent(this, typeof(SecondaryActivity));

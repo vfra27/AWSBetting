@@ -148,10 +148,14 @@ namespace AWSBetting
                          };
                          if (AWSDataAccess.InsertRecharge(r) != Guid.Empty)
                          {
-                             Toast.MakeText(Activity, "Recharge added", ToastLength.Long).Show();
-                             TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
-                             (Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;                             
-                             adapter.RemoveFragment();
+                             Intent intent = new Intent();
+                             intent.PutExtra("type", Resources.GetString(Resource.String.addRecharge));
+                             Activity.SetResult(Result.Ok, intent);
+                             Activity.Finish();
+                             //Toast.MakeText(Activity, "Recharge added", ToastLength.Long).Show();
+                             //TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
+                             //(Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;                             
+                             //adapter.RemoveFragment();
                          }
                          else
                          {

@@ -152,6 +152,7 @@ namespace AWSBetting
                     {
                         #region Calculation                    
                         decimal spMoney = 0;
+                        decimal betProfitSum = 0;
                         foreach (var t in recharges)
                         {
                             spMoney += t.Amount;
@@ -160,16 +161,17 @@ namespace AWSBetting
                         foreach (var ti in closedTeam)
                         {
                             winMoney += ti.Win;
+                            betProfitSum += ti.BetProfit;
                         }
                         #endregion
 
-
+                        Thread.Sleep(2000);
                         Activity.RunOnUiThread(() =>
                         {
                             PlotView pView = view.FindViewById<PlotView>(Resource.Id.plot_view);
-                            pView.Model = CreatePlotModel(winMoney, spMoney);
+                            pView.Model = CreatePlotModel(winMoney, spMoney, betProfitSum);
                         });
-                        Thread.Sleep(2000);
+                        
                         progressDialog.Dismiss();
 
                     })).Start();
@@ -183,7 +185,7 @@ namespace AWSBetting
 
 
                     decimal spentMoney = 0;
-
+                    decimal betProfitSum = 0;
                     foreach (var r in recharges)
                     {
                         spentMoney += r.Amount;
@@ -209,6 +211,7 @@ namespace AWSBetting
                         //List<BetDetails> details =
                         //    AWSDataAccess.GetBetDetailsByTeamId(ti.Id);
                         winnedMoney += ti.Win;
+                        betProfitSum += ti.BetProfit;
                         //foreach (var de in details)
                         //{
                         //    spentMoney += de.Quantity;
@@ -218,7 +221,7 @@ namespace AWSBetting
                     #endregion
 
                     PlotView plotView = view.FindViewById<PlotView>(Resource.Id.plot_view);
-                    plotView.Model = CreatePlotModel(winnedMoney, spentMoney);
+                    plotView.Model = CreatePlotModel(winnedMoney, spentMoney, betProfitSum);
                 }
 
             }
@@ -387,7 +390,7 @@ namespace AWSBetting
             }
         }
 
-        private PlotModel CreatePlotModel(decimal winnedMoney, decimal spentMoney)
+        private PlotModel CreatePlotModel(decimal winnedMoney, decimal spentMoney, decimal betProfitSum)
         {
             var plotModel = new PlotModel
             {
@@ -444,8 +447,8 @@ namespace AWSBetting
 
             cost.Items.Add(new ColumnItem(Convert.ToDouble(spentMoney)));
             win.Items.Add(new ColumnItem(Convert.ToDouble(winnedMoney)));
-            var profitValue = winnedMoney - spentMoney;
-            profit.Items.Add(new ColumnItem(Convert.ToDouble(profitValue)));
+            //var profitValue = winnedMoney - spentMoney;
+            profit.Items.Add(new ColumnItem(Convert.ToDouble(betProfitSum)));
 
             plotModel.Series.Add(cost);
             plotModel.Series.Add(win);

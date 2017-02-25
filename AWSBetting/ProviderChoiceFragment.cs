@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
+using Android.Support.Design.Widget;
 
 namespace AWSBetting
 {
@@ -24,24 +25,19 @@ namespace AWSBetting
             return fragment;
         }
 
-        public override void OnDestroy()
+        public override void OnDismiss(IDialogInterface dialog)
         {
-
-
-            base.OnDestroy();
-
-            //ViewPager pager = Activity.FindViewById<ViewPager>(Resource.Id.pager);
-            //pager.
-            //((TabsFragmentPagerAdapter)pager.Adapter).;
-            //Android.Support.V4.App.FragmentTransaction ft = Activity.SupportFragmentManager.BeginTransaction();
-            //ft.Replace(Resource.Id.frameLayout1, new HomeFragment());
-            //ft.Commit();
-            //if (FragmentManager.FindFragmentById<HomeFragment>(Resource.Id.home) !=null)
+            base.OnDismiss(dialog);
+            //if (onDismissListener!=null)
             //{
+            //    onDismissListener.OnDismiss(dialog);
+            //}
 
-
-            //} 
-
+            NavigationView navView = Activity.FindViewById<NavigationView>(Resource.Id.nav_view);
+            navView.Menu.FindItem(Resource.Id.nav_home).SetChecked(true);
+            TabsFragmentPagerAdapter viewPagerAdapter = Activity.FindViewById<ViewPager>(Resource.Id.pager).Adapter
+                as TabsFragmentPagerAdapter;
+            viewPagerAdapter.Update();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

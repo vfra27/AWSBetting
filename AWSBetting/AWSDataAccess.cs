@@ -362,6 +362,7 @@ namespace AWSBetting
                                 t.Status = Convert.ToBoolean(dataReader["Status"]);
                                 t.Bet = dataReader["Bet"].ToString();
                                 t.Win = Convert.ToDecimal(dataReader["Win"]);
+                                t.TotalCost = Convert.ToDecimal(dataReader["Total_Cost"]);
 
                                 //if (dataReader["Win"] != null)
                                 //{

@@ -127,7 +127,7 @@ namespace AWSBetting
                         return homeChildFragment;
 
                     }
-                    return new HomeFragment();
+                    return new OddsFragment();
                     //return HomeFragment.NewInstance(context);                    
                 case 1:
                     if (activeBetChildFragment != null)

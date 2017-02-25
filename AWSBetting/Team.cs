@@ -40,6 +40,12 @@ namespace AWSBetting
 
         public BetProvider BetProvider { get; set; }
         public decimal TotalCost { get; set; }
+
+        public decimal BetProfit
+        {
+            get { return Win - TotalCost; }
+            
+        }
     }
 
     public enum BetProvider

@@ -13,6 +13,7 @@ using Android.Widget;
 using Java.Lang;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
+using Android.Support.Design.Widget;
 
 namespace AWSBetting
 {
@@ -45,6 +46,8 @@ namespace AWSBetting
             //    onDismissListener.OnDismiss(dialog);
             //}
 
+            NavigationView navView = Activity.FindViewById<NavigationView>(Resource.Id.nav_view);
+            navView.Menu.FindItem(Resource.Id.nav_home).SetChecked(true);
             TabsFragmentPagerAdapter viewPagerAdapter = Activity.FindViewById<ViewPager>(Resource.Id.pager).Adapter
                 as TabsFragmentPagerAdapter;
             viewPagerAdapter.Update();

@@ -35,11 +35,13 @@ namespace AWSBetting
                 {                    
                     case 1:                        
                         ft.Replace(Resource.Id.frame, new AddBetFragment());
-                        ft.Commit();                        
+                        ft.Commit();
+                        this.Title=Resources.GetString(Resource.String.adding);
                         break;
                     case 2:
                         ft.Replace(Resource.Id.frame, new ModifyBetFragment());
                         ft.Commit();
+                        this.Title = Resources.GetString(Resource.String.editing);
                         break;
                     case 3:
                         var calculateBetFragment = new CalculateBetFragment() { Arguments = new Bundle() };
@@ -48,6 +50,12 @@ namespace AWSBetting
                         this.Title += " on " + Intent.GetStringExtra("Name");
                         ft.Replace(Resource.Id.frame, calculateBetFragment);
                         ft.Commit();
+                        this.Title = Resources.GetString(Resource.String.calculating);
+                        break;
+                    case 4:
+                        ft.Replace(Resource.Id.frame, new HomeFragment());
+                        ft.Commit();
+                        this.Title = Resources.GetString(Resource.String.profitPlot);                        
                         break;
                     default:
                         break;
