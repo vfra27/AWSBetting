@@ -45,6 +45,7 @@ namespace AWSBetting
         DrawerLayout drawer;
         NavigationView navigationView;
 
+        
 
         protected override void OnRestart()
         {

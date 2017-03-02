@@ -63,13 +63,13 @@ namespace AWSBetting
             view.FindViewById<TextView>(Resource.Id.activeBet).Text = team.Bet;
             TextView lastBet = view.FindViewById<TextView>(Resource.Id.lastBet);
 
-
-            List<BetDetails>betDetails = AWSDataAccess.GetBetDetailsByTeamId(team.Id);
-            if (betDetails.Count>0)
-            {
-                lastBet.Text = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
-                //
-            }
+            lastBet.Text = team.LastBet;
+            //List<BetDetails>betDetails = AWSDataAccess.GetBetDetailsByTeamId(team.Id);
+            //if (betDetails.Count>0)
+            //{
+            //    lastBet.Text = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
+                
+            //}
 
 
             //Button nextBet = view.FindViewById<Button>(Resource.Id.nextBet);

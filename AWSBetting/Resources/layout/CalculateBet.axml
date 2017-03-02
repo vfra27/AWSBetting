@@ -63,4 +63,23 @@
         android:layout_width="match_parent"
         android:id="@+id/SaveBet"
         android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout1">
+        <Button
+            android:text="Split in"
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:id="@+id/splitBtn"
+            android:layout_marginTop="50px" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:id="@+id/numberOfSplit"
+            android:layout_toRightOf="@id/splitBtn"
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="40px" />
+    </RelativeLayout>
 </LinearLayout>

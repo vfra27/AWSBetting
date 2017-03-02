@@ -39,6 +39,9 @@ namespace AWSBetting
 
 
             List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(TeamId);
+
+            Team = AWSDataAccess.GetBetTeamById(TeamId);
+
             string history = string.Empty;
 
             foreach (var item in betDetails)
@@ -61,6 +64,91 @@ namespace AWSBetting
             EditText teamName = view.FindViewById<EditText>(Resource.Id.TeamName);
             teamName.Text = TeamName;  
             Button saveBetBtn = view.FindViewById<Button>(Resource.Id.SaveBet);
+            Button splitBtn = view.FindViewById<Button>(Resource.Id.splitBtn);
+            EditText numberOfSplit = view.FindViewById<EditText>(Resource.Id.numberOfSplit);
+
+
+            splitBtn.Click += delegate {
+
+                if (numberOfSplit.Text != "")
+                {
+                    decimal nOfSplit;
+                    Decimal.TryParse(numberOfSplit.Text, out nOfSplit);
+                    List<decimal> result = BetCalculator.Split(historyTxt.Text, nOfSplit);
+
+                    Android.Support.V7.App.AlertDialog.Builder alert = new Android.Support.V7.App.AlertDialog.Builder(Activity);
+
+                    alert.SetTitle(Resource.String.splitAlertTitle);
+                    alert.SetPositiveButton("Save", (senderAlert, args) =>
+                    {
+                        int i = 1;
+                        foreach (decimal item in result)
+                        {
+                            Team t = new Team()
+                            {
+                                Id = Guid.NewGuid(),
+                                Name = "Temp"+i,
+                                Bet = Team.Bet,
+                                BetProvider = Team.BetProvider,
+                                Status = Team.Status,
+                                TotalCost = Team.TotalCost,
+                                Win = Team.Win
+                            };
+                            i++;
+                            BetDetails detail = new BetDetails()
+                            {
+                                Id = Guid.NewGuid(),
+                                Date = DateTime.Now,
+                                Team_Id = t.Id,
+                                Quantity = item
+                            };
+
+                            if (AWSDataAccess.InsertTeam(t)==Guid.Empty)
+                            {
+                                Toast.MakeText(Activity, "Error in team saving", ToastLength.Long).Show();
+                                return;
+                            }
+                            else
+                            {
+                                if (AWSDataAccess.InsertBetDetails(detail) == Guid.Empty)
+                                {
+                                    Toast.MakeText(Activity, "Error in team saving", ToastLength.Long).Show();
+                                    return;
+                                } 
+                            }
+                            
+                            
+                        }
+
+                        AWSDataAccess.DeleteAllBetTeam(Team);
+                        Intent intent = new Intent();
+                        intent.PutExtra("type", Resources.GetString(Resource.String.calculateBet));
+                        Activity.SetResult(Result.Ok, intent);
+                        Activity.Finish();
+                    });
+                    string splitSerie =String.Empty;
+                    foreach (decimal item in result)
+                    {
+                        splitSerie += item.ToString()+" ";
+                    }
+
+                    alert.SetMessage("Split Result : \n" + splitSerie);
+
+                    alert.SetNegativeButton("Cancel", (senderAlert, args) =>
+                    {
+                        return;
+                    });
+
+                    alert.Show();
+                }
+                else
+                {
+                    numberOfSplit.Error = "Requested";
+                }
+                
+
+
+            };
 
 
             saveBetBtn.Click += delegate
@@ -96,9 +184,9 @@ namespace AWSBetting
                         intent.PutExtra("type", Resources.GetString(Resource.String.calculateBet));
                         Activity.SetResult(Result.Ok, intent);
                         Activity.Finish();
-                        
 
 
+                        #region old code
                         //Toast.MakeText(Activity, "Bet saved", ToastLength.Long).Show();
                         //TabsFragmentPagerAdapter adapter = Activity.FindViewById<ViewPager>
                         //(Resource.Id.pager).Adapter as TabsFragmentPagerAdapter;
@@ -108,6 +196,7 @@ namespace AWSBetting
                         //.BeginTransaction();
                         //ft.Replace(Resource.Id.root_frame, new ActiveBetFragment());
                         //ft.Commit();
+                        #endregion
 
                     }
                     else
@@ -213,5 +302,7 @@ namespace AWSBetting
                 
         }
 
+
+        public Team Team { get; set; }
     }
 }

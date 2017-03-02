@@ -85,6 +85,54 @@ namespace AWSBetting
 
         }
 
+        public static List<decimal> Split(string history, decimal numberOfSplit)
+        {
+            List<decimal> newValue = new List<decimal>();
+
+            string[] quote = history.Split(',');
+            decimal sum = 0;
+            foreach (var q in quote)
+            {
+                sum += Int32.Parse(q);
+            }
+
+
+            //decimal result = sum / numberOfSplit;
+            //for (int i = 0; i < numberOfSplit; i++)
+            //{
+            //    newValue.Add(result);
+            //}
+
+            #region remainder management 
+
+            decimal rest = sum % numberOfSplit;
+            if (rest == 0)
+            {
+                decimal result = sum / numberOfSplit;
+                for (int i = 0; i < numberOfSplit; i++)
+                {
+                    newValue.Add(result);
+                }
+            }
+            else
+            {
+                int result =(Int32)( sum / numberOfSplit);
+                int partialSum = 0;
+                for (int i = 0; i < numberOfSplit; i++)
+                {
+                    partialSum += result;
+                    newValue.Add(result);
+                }
+                int remainder = (Int32)(sum - ((decimal)partialSum));
+
+                newValue[newValue.Count - 1] += remainder; 
+
+            }
+            #endregion
+            
+
+            return newValue;
+        }
 
     }
 

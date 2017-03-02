@@ -2078,8 +2078,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060080
 			public const int Calculate = 2131099776;
 			
-			// aapt resource value: 0x7f06008c
-			public const int ClosedBetList = 2131099788;
+			// aapt resource value: 0x7f06008e
+			public const int ClosedBetList = 2131099790;
 			
 			// aapt resource value: 0x7f06007c
 			public const int History = 2131099772;
@@ -2099,8 +2099,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06007f
 			public const int TeamName = 2131099775;
 			
-			// aapt resource value: 0x7f0600ac
-			public const int action0 = 2131099820;
+			// aapt resource value: 0x7f0600af
+			public const int action0 = 2131099823;
 			
 			// aapt resource value: 0x7f06005e
 			public const int action_bar = 2131099742;
@@ -2126,8 +2126,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06005f
 			public const int action_context_bar = 2131099743;
 			
-			// aapt resource value: 0x7f0600b0
-			public const int action_divider = 2131099824;
+			// aapt resource value: 0x7f0600b3
+			public const int action_divider = 2131099827;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -2150,8 +2150,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06006e
 			public const int activeBetHeader = 2131099758;
 			
-			// aapt resource value: 0x7f060089
-			public const int activeTeamsSpinner = 2131099785;
+			// aapt resource value: 0x7f06008b
+			public const int activeTeamsSpinner = 2131099787;
 			
 			// aapt resource value: 0x7f060040
 			public const int activity_chooser_view_content = 2131099712;
@@ -2174,14 +2174,14 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06002b
 			public const int auto = 2131099691;
 			
-			// aapt resource value: 0x7f0600a0
-			public const int balanceLayout = 2131099808;
+			// aapt resource value: 0x7f0600a2
+			public const int balanceLayout = 2131099810;
 			
 			// aapt resource value: 0x7f06001c
 			public const int beginning = 2131099676;
 			
-			// aapt resource value: 0x7f0600ba
-			public const int betProviders = 2131099834;
+			// aapt resource value: 0x7f0600bd
+			public const int betProviders = 2131099837;
 			
 			// aapt resource value: 0x7f060077
 			public const int betType = 2131099767;
@@ -2192,14 +2192,14 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060047
 			public const int buttonPanel = 2131099719;
 			
-			// aapt resource value: 0x7f060087
-			public const int calendarLeagueSpinner = 2131099783;
+			// aapt resource value: 0x7f060089
+			public const int calendarLeagueSpinner = 2131099785;
 			
-			// aapt resource value: 0x7f060086
-			public const int calendarsView = 2131099782;
+			// aapt resource value: 0x7f060088
+			public const int calendarsView = 2131099784;
 			
-			// aapt resource value: 0x7f0600ad
-			public const int cancel_action = 2131099821;
+			// aapt resource value: 0x7f0600b0
+			public const int cancel_action = 2131099824;
 			
 			// aapt resource value: 0x7f06002c
 			public const int center = 2131099692;
@@ -2213,8 +2213,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060055
 			public const int checkbox = 2131099733;
 			
-			// aapt resource value: 0x7f0600b3
-			public const int chronometer = 2131099827;
+			// aapt resource value: 0x7f0600b6
+			public const int chronometer = 2131099830;
 			
 			// aapt resource value: 0x7f060035
 			public const int clip_horizontal = 2131099701;
@@ -2222,26 +2222,26 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060036
 			public const int clip_vertical = 2131099702;
 			
-			// aapt resource value: 0x7f060088
-			public const int closeBetDialog = 2131099784;
+			// aapt resource value: 0x7f06008a
+			public const int closeBetDialog = 2131099786;
 			
-			// aapt resource value: 0x7f060092
-			public const int closedBet = 2131099794;
-			
-			// aapt resource value: 0x7f06008d
-			public const int closedBetHeader = 2131099789;
-			
-			// aapt resource value: 0x7f060090
-			public const int closedBetRow = 2131099792;
-			
-			// aapt resource value: 0x7f060091
-			public const int closedBetTeam = 2131099793;
-			
-			// aapt resource value: 0x7f06008e
-			public const int closedTeamHeader = 2131099790;
+			// aapt resource value: 0x7f060094
+			public const int closedBet = 2131099796;
 			
 			// aapt resource value: 0x7f06008f
-			public const int closedWinHeader = 2131099791;
+			public const int closedBetHeader = 2131099791;
+			
+			// aapt resource value: 0x7f060092
+			public const int closedBetRow = 2131099794;
+			
+			// aapt resource value: 0x7f060093
+			public const int closedBetTeam = 2131099795;
+			
+			// aapt resource value: 0x7f060090
+			public const int closedTeamHeader = 2131099792;
+			
+			// aapt resource value: 0x7f060091
+			public const int closedWinHeader = 2131099793;
 			
 			// aapt resource value: 0x7f060020
 			public const int collapseActionView = 2131099680;
@@ -2261,20 +2261,20 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060043
 			public const int default_activity_button = 2131099715;
 			
-			// aapt resource value: 0x7f060094
-			public const int design_bottom_sheet = 2131099796;
+			// aapt resource value: 0x7f060096
+			public const int design_bottom_sheet = 2131099798;
+			
+			// aapt resource value: 0x7f06009d
+			public const int design_menu_item_action_area = 2131099805;
+			
+			// aapt resource value: 0x7f06009c
+			public const int design_menu_item_action_area_stub = 2131099804;
 			
 			// aapt resource value: 0x7f06009b
-			public const int design_menu_item_action_area = 2131099803;
+			public const int design_menu_item_text = 2131099803;
 			
 			// aapt resource value: 0x7f06009a
-			public const int design_menu_item_action_area_stub = 2131099802;
-			
-			// aapt resource value: 0x7f060099
-			public const int design_menu_item_text = 2131099801;
-			
-			// aapt resource value: 0x7f060098
-			public const int design_navigation_view = 2131099800;
+			public const int design_navigation_view = 2131099802;
 			
 			// aapt resource value: 0x7f06007a
 			public const int digitalClock1 = 2131099770;
@@ -2282,8 +2282,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06000e
 			public const int disableHome = 2131099662;
 			
-			// aapt resource value: 0x7f0600a4
-			public const int drawerLayout = 2131099812;
+			// aapt resource value: 0x7f0600a6
+			public const int drawerLayout = 2131099814;
 			
 			// aapt resource value: 0x7f060060
 			public const int edit_query = 2131099744;
@@ -2291,8 +2291,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06001d
 			public const int end = 2131099677;
 			
-			// aapt resource value: 0x7f0600b8
-			public const int end_padder = 2131099832;
+			// aapt resource value: 0x7f0600bb
+			public const int end_padder = 2131099835;
 			
 			// aapt resource value: 0x7f060026
 			public const int enterAlways = 2131099686;
@@ -2324,8 +2324,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06003b
 			public const int @fixed = 2131099707;
 			
-			// aapt resource value: 0x7f0600c0
-			public const int frame = 2131099840;
+			// aapt resource value: 0x7f0600c3
+			public const int frame = 2131099843;
 			
 			// aapt resource value: 0x7f060005
 			public const int home = 2131099653;
@@ -2342,8 +2342,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060042
 			public const int image = 2131099714;
 			
-			// aapt resource value: 0x7f0600b7
-			public const int info = 2131099831;
+			// aapt resource value: 0x7f0600ba
+			public const int info = 2131099834;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -2354,17 +2354,17 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060070
 			public const int lastBetHeader = 2131099760;
 			
-			// aapt resource value: 0x7f0600bc
-			public const int leagueSpinner = 2131099836;
+			// aapt resource value: 0x7f0600bf
+			public const int leagueSpinner = 2131099839;
 			
 			// aapt resource value: 0x7f060030
 			public const int left = 2131099696;
 			
-			// aapt resource value: 0x7f0600b1
-			public const int line1 = 2131099825;
+			// aapt resource value: 0x7f0600b4
+			public const int line1 = 2131099828;
 			
-			// aapt resource value: 0x7f0600b5
-			public const int line3 = 2131099829;
+			// aapt resource value: 0x7f0600b8
+			public const int line3 = 2131099832;
 			
 			// aapt resource value: 0x7f06000b
 			public const int listMode = 2131099659;
@@ -2372,35 +2372,35 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060044
 			public const int list_item = 2131099716;
 			
-			// aapt resource value: 0x7f0600a3
-			public const int mainToolbar = 2131099811;
+			// aapt resource value: 0x7f0600a5
+			public const int mainToolbar = 2131099813;
 			
-			// aapt resource value: 0x7f0600a2
-			public const int main_layout = 2131099810;
+			// aapt resource value: 0x7f0600a4
+			public const int main_layout = 2131099812;
 			
-			// aapt resource value: 0x7f0600af
-			public const int media_actions = 2131099823;
-			
-			// aapt resource value: 0x7f0600c3
-			public const int menu_close = 2131099843;
-			
-			// aapt resource value: 0x7f0600c1
-			public const int menu_create = 2131099841;
+			// aapt resource value: 0x7f0600b2
+			public const int media_actions = 2131099826;
 			
 			// aapt resource value: 0x7f0600c6
-			public const int menu_delete = 2131099846;
-			
-			// aapt resource value: 0x7f0600c7
-			public const int menu_deleteAll = 2131099847;
-			
-			// aapt resource value: 0x7f0600c2
-			public const int menu_edit = 2131099842;
+			public const int menu_close = 2131099846;
 			
 			// aapt resource value: 0x7f0600c4
-			public const int menu_preferences = 2131099844;
+			public const int menu_create = 2131099844;
+			
+			// aapt resource value: 0x7f0600c9
+			public const int menu_delete = 2131099849;
+			
+			// aapt resource value: 0x7f0600ca
+			public const int menu_deleteAll = 2131099850;
 			
 			// aapt resource value: 0x7f0600c5
-			public const int menu_save = 2131099845;
+			public const int menu_edit = 2131099845;
+			
+			// aapt resource value: 0x7f0600c7
+			public const int menu_preferences = 2131099847;
+			
+			// aapt resource value: 0x7f0600c8
+			public const int menu_save = 2131099848;
 			
 			// aapt resource value: 0x7f06001e
 			public const int middle = 2131099678;
@@ -2408,47 +2408,50 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06003a
 			public const int mini = 2131099706;
 			
-			// aapt resource value: 0x7f0600aa
-			public const int modBetType = 2131099818;
+			// aapt resource value: 0x7f0600ad
+			public const int modBetTeamName = 2131099821;
 			
-			// aapt resource value: 0x7f0600a9
-			public const int modLastBet = 2131099817;
-			
-			// aapt resource value: 0x7f0600a8
-			public const int modTeamName = 2131099816;
+			// aapt resource value: 0x7f0600ac
+			public const int modBetType = 2131099820;
 			
 			// aapt resource value: 0x7f0600ab
-			public const int modifyBetToolbar = 2131099819;
+			public const int modLastBet = 2131099819;
+			
+			// aapt resource value: 0x7f0600aa
+			public const int modTeamName = 2131099818;
+			
+			// aapt resource value: 0x7f0600ae
+			public const int modifyBetToolbar = 2131099822;
 			
 			// aapt resource value: 0x7f060016
 			public const int multiply = 2131099670;
 			
-			// aapt resource value: 0x7f0600cb
-			public const int nav_close = 2131099851;
-			
-			// aapt resource value: 0x7f0600c9
-			public const int nav_create = 2131099849;
-			
-			// aapt resource value: 0x7f0600ca
-			public const int nav_edit = 2131099850;
-			
-			// aapt resource value: 0x7f0600c8
-			public const int nav_home = 2131099848;
+			// aapt resource value: 0x7f0600ce
+			public const int nav_close = 2131099854;
 			
 			// aapt resource value: 0x7f0600cc
-			public const int nav_plot = 2131099852;
+			public const int nav_create = 2131099852;
 			
 			// aapt resource value: 0x7f0600cd
-			public const int nav_preferences = 2131099853;
+			public const int nav_edit = 2131099853;
 			
-			// aapt resource value: 0x7f0600a7
-			public const int nav_view = 2131099815;
+			// aapt resource value: 0x7f0600cb
+			public const int nav_home = 2131099851;
 			
-			// aapt resource value: 0x7f06009d
-			public const int navdrawer_image = 2131099805;
+			// aapt resource value: 0x7f0600cf
+			public const int nav_plot = 2131099855;
 			
-			// aapt resource value: 0x7f060097
-			public const int navigation_header_container = 2131099799;
+			// aapt resource value: 0x7f0600d0
+			public const int nav_preferences = 2131099856;
+			
+			// aapt resource value: 0x7f0600a9
+			public const int nav_view = 2131099817;
+			
+			// aapt resource value: 0x7f06009f
+			public const int navdrawer_image = 2131099807;
+			
+			// aapt resource value: 0x7f060099
+			public const int navigation_header_container = 2131099801;
 			
 			// aapt resource value: 0x7f060022
 			public const int never = 2131099682;
@@ -2459,11 +2462,14 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06000c
 			public const int normal = 2131099660;
 			
-			// aapt resource value: 0x7f0600b9
-			public const int oddsView = 2131099833;
+			// aapt resource value: 0x7f060087
+			public const int numberOfSplit = 2131099783;
 			
-			// aapt resource value: 0x7f0600a6
-			public const int pager = 2131099814;
+			// aapt resource value: 0x7f0600bc
+			public const int oddsView = 2131099836;
+			
+			// aapt resource value: 0x7f0600a8
+			public const int pager = 2131099816;
 			
 			// aapt resource value: 0x7f060033
 			public const int parallax = 2131099699;
@@ -2474,8 +2480,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060034
 			public const int pin = 2131099700;
 			
-			// aapt resource value: 0x7f0600a1
-			public const int plot_view = 2131099809;
+			// aapt resource value: 0x7f0600a3
+			public const int plot_view = 2131099811;
 			
 			// aapt resource value: 0x7f060006
 			public const int progress_circular = 2131099654;
@@ -2486,8 +2492,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060057
 			public const int radio = 2131099735;
 			
-			// aapt resource value: 0x7f0600bb
-			public const int rankingsView = 2131099835;
+			// aapt resource value: 0x7f0600be
+			public const int rankingsView = 2131099838;
 			
 			// aapt resource value: 0x7f060075
 			public const int rechargeSwt = 2131099765;
@@ -2498,11 +2504,11 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060031
 			public const int right = 2131099697;
 			
-			// aapt resource value: 0x7f0600bd
-			public const int root_frame = 2131099837;
+			// aapt resource value: 0x7f0600c0
+			public const int root_frame = 2131099840;
 			
-			// aapt resource value: 0x7f06008b
-			public const int saveWin = 2131099787;
+			// aapt resource value: 0x7f06008d
+			public const int saveWin = 2131099789;
 			
 			// aapt resource value: 0x7f060017
 			public const int screen = 2131099671;
@@ -2552,11 +2558,11 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06006b
 			public const int search_voice_btn = 2131099755;
 			
-			// aapt resource value: 0x7f0600bf
-			public const int secondaryToolbar = 2131099839;
+			// aapt resource value: 0x7f0600c2
+			public const int secondaryToolbar = 2131099842;
 			
-			// aapt resource value: 0x7f0600be
-			public const int secondary_layout = 2131099838;
+			// aapt resource value: 0x7f0600c1
+			public const int secondary_layout = 2131099841;
 			
 			// aapt resource value: 0x7f06006c
 			public const int select_dialog_listview = 2131099756;
@@ -2573,17 +2579,20 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060013
 			public const int showTitle = 2131099667;
 			
-			// aapt resource value: 0x7f060096
-			public const int snackbar_action = 2131099798;
+			// aapt resource value: 0x7f060098
+			public const int snackbar_action = 2131099800;
 			
-			// aapt resource value: 0x7f060095
-			public const int snackbar_text = 2131099797;
+			// aapt resource value: 0x7f060097
+			public const int snackbar_text = 2131099799;
 			
 			// aapt resource value: 0x7f06002a
 			public const int snap = 2131099690;
 			
 			// aapt resource value: 0x7f060048
 			public const int spacer = 2131099720;
+			
+			// aapt resource value: 0x7f060086
+			public const int splitBtn = 2131099782;
 			
 			// aapt resource value: 0x7f060008
 			public const int split_action_bar = 2131099656;
@@ -2600,8 +2609,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060032
 			public const int start = 2131099698;
 			
-			// aapt resource value: 0x7f0600ae
-			public const int status_bar_latest_event_content = 2131099822;
+			// aapt resource value: 0x7f0600b1
+			public const int status_bar_latest_event_content = 2131099825;
 			
 			// aapt resource value: 0x7f060058
 			public const int submenuarrow = 2131099736;
@@ -2612,8 +2621,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06000d
 			public const int tabMode = 2131099661;
 			
-			// aapt resource value: 0x7f0600a5
-			public const int tab_layout = 2131099813;
+			// aapt resource value: 0x7f0600a7
+			public const int tab_layout = 2131099815;
 			
 			// aapt resource value: 0x7f060072
 			public const int team = 2131099762;
@@ -2624,11 +2633,11 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060076
 			public const int teamName = 2131099766;
 			
-			// aapt resource value: 0x7f0600b6
-			public const int text = 2131099830;
+			// aapt resource value: 0x7f0600b9
+			public const int text = 2131099833;
 			
-			// aapt resource value: 0x7f0600b4
-			public const int text2 = 2131099828;
+			// aapt resource value: 0x7f0600b7
+			public const int text2 = 2131099831;
 			
 			// aapt resource value: 0x7f060050
 			public const int textSpacerNoButtons = 2131099728;
@@ -2645,11 +2654,11 @@ namespace AWSBetting
 			// aapt resource value: 0x7f060083
 			public const int textView4 = 2131099779;
 			
-			// aapt resource value: 0x7f06009c
-			public const int text_input_password_toggle = 2131099804;
+			// aapt resource value: 0x7f06009e
+			public const int text_input_password_toggle = 2131099806;
 			
-			// aapt resource value: 0x7f0600b2
-			public const int time = 2131099826;
+			// aapt resource value: 0x7f0600b5
+			public const int time = 2131099829;
 			
 			// aapt resource value: 0x7f060046
 			public const int title = 2131099718;
@@ -2663,14 +2672,14 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06004a
 			public const int topPanel = 2131099722;
 			
-			// aapt resource value: 0x7f060093
-			public const int touch_outside = 2131099795;
+			// aapt resource value: 0x7f060095
+			public const int touch_outside = 2131099797;
 			
-			// aapt resource value: 0x7f06009f
-			public const int txtViewEmail = 2131099807;
+			// aapt resource value: 0x7f0600a1
+			public const int txtViewEmail = 2131099809;
 			
-			// aapt resource value: 0x7f06009e
-			public const int txtViewName = 2131099806;
+			// aapt resource value: 0x7f0600a0
+			public const int txtViewName = 2131099808;
 			
 			// aapt resource value: 0x7f060009
 			public const int up = 2131099657;
@@ -2681,8 +2690,8 @@ namespace AWSBetting
 			// aapt resource value: 0x7f06000a
 			public const int view_offset_helper = 2131099658;
 			
-			// aapt resource value: 0x7f06008a
-			public const int win = 2131099786;
+			// aapt resource value: 0x7f06008c
+			public const int win = 2131099788;
 			
 			// aapt resource value: 0x7f060023
 			public const int withText = 2131099683;
@@ -3155,6 +3164,9 @@ namespace AWSBetting
 			
 			// aapt resource value: 0x7f070013
 			public const int search_menu_title = 2131165203;
+			
+			// aapt resource value: 0x7f07003d
+			public const int splitAlertTitle = 2131165245;
 			
 			// aapt resource value: 0x7f070014
 			public const int status_bar_notification_info_overflow = 2131165204;

@@ -25,6 +25,11 @@
         android:id="@+id/modBetType"
         android:layout_marginTop="30dp"
         android:editable="false" />
+  <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/modBetTeamName"
+        android:layout_marginTop="30dp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -317,6 +317,7 @@ namespace AWSBetting
 
             string sqlQuery = string.Empty;
 
+            #region old code
             //if (status==0)
             //{
 
@@ -330,9 +331,18 @@ namespace AWSBetting
             //    sqlQuery = "Select * from team " +
             //    "where status= @status and bet_provider=@betProvider ";
             //}
-
+            #endregion
             sqlQuery = "Select * from team " +
                  "where status= @status and bet_provider=@betProvider ";
+
+            //sqlQuery =
+            //    "select distinct " +
+            //    "t.id as Id, t.Name as Name, t.Bet as Bet,"+
+            //    "t.Status as Status, t.Win as Win, t.Total_Cost as Total_Cost,bd.date " +
+            //    "from team as t "+ 
+            //    "inner join betdetails as bd on t.id = bd.team_id "+
+            //    "where status= @status and bet_provider=@betProvider "+
+            //    "order by bd.date desc";
 
             int provider = (int)ApplicationState.ActiveProvider;
 
@@ -387,9 +397,72 @@ namespace AWSBetting
         }
 
 
-        
+        public static Team GetBetTeamById(Guid teamId)
+        {
+            Team team = new Team();
 
-        
+            string sqlQuery = string.Empty;
+
+         
+            sqlQuery = "Select * from team " +
+                 "where id=@teamId ";
+
+            int provider = (int)ApplicationState.ActiveProvider;
+
+            using (SqlCommand cmd = new SqlCommand(sqlQuery))
+            {
+                cmd.Parameters.Add("@teamId", SqlDbType.UniqueIdentifier).Value = teamId;
+                
+
+                using (SqlConnection connection = new SqlConnection(DataAccess.DataAccess.Initialize().ConnectionString))
+                {
+
+                    connection.Open();
+                    cmd.Connection = connection;
+
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        if (dataReader.HasRows)
+                        {
+                            while (dataReader.Read())
+                            {
+                                
+                                team.Id = new Guid(dataReader["Id"].ToString());
+                                team.Name = dataReader["Name"].ToString();
+                                team.Status = Convert.ToBoolean(dataReader["Status"]);
+                                team.Bet = dataReader["Bet"].ToString();
+                                team.Win = Convert.ToDecimal(dataReader["Win"]);
+                                team.TotalCost = Convert.ToDecimal(dataReader["Total_Cost"]);
+                                provider = Convert.ToInt32(dataReader["Bet_Provider"]);
+                                switch (provider)
+                                {
+                                    case (int)BetProvider.PaddyPower:
+                                        team.BetProvider = BetProvider.PaddyPower;
+                                        break;
+                                    case (int)BetProvider.Bet365:
+                                        team.BetProvider = BetProvider.Bet365;
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                            }
+                        }
+                        dataReader.Close();
+                    }
+
+                    connection.Close();
+                }
+
+                //Select(cmd)
+
+            }
+
+
+            return team;
+        }
+
+
 
 
     }

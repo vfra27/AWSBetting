@@ -30,6 +30,7 @@ namespace AWSBetting
         private List<BetDetails> betDetails = new List<BetDetails>();
         private EditText lastBet;
         private EditText betType;
+        private EditText betTeamName;
         
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -48,6 +49,7 @@ namespace AWSBetting
 
             this.lastBet = view.FindViewById<EditText>(Resource.Id.modLastBet);
             this.betType = view.FindViewById<EditText>(Resource.Id.modBetType);
+            this.betTeamName = view.FindViewById<EditText>(Resource.Id.modBetTeamName);
             lastBet.FixDigits();
             Spinner betTeamsSpinner = view.FindViewById<Spinner>(Resource.Id.modTeamName);
 
@@ -61,7 +63,7 @@ namespace AWSBetting
 
                 Activity.RunOnUiThread(() => { betTeamsSpinner.Adapter = 
                     new SpinnerTeamAdapter(Activity, activeBetTeams); });
-
+                #region old code
                 //if (activeBetTeams.Count > 0)
                 //{
                 //    List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(
@@ -77,13 +79,13 @@ namespace AWSBetting
                 //        Activity.RunOnUiThread(() => { betType.Text = activeBetTeams[0].Bet; });
                 //    }
                 //}
-                
+
                 //});
-                
+
                 //betList.AddHeaderView(header, null, false);
                 //betList.Adapter = new TeamListAdapter(Activity, this.teams);
                 //betList.ItemClick += ActiveBetFragment_ItemClick;
-
+                #endregion
                 Thread.Sleep(10);
                 progressDialog.Dismiss();
                 running = 0;
@@ -172,6 +174,7 @@ namespace AWSBetting
             var editToolbar = view.FindViewById<Toolbar>(Resource.Id.modifyBetToolbar);
             //editToolbar.Title = "Editing";
             editToolbar.InflateMenu(Resource.Menu.modifyBet_menus);
+            #region old code
             //Spinner betProviders= editToolbar.FindViewById<Spinner>(Resource.Id.providerSpinnerToolbar);
             //var providers = new List<BetProvider>() { BetProvider.PaddyPower, BetProvider.Bet365 };
             //betProviders.Adapter = new ArrayAdapter<BetProvider>(Activity,
@@ -184,36 +187,55 @@ namespace AWSBetting
             //};
 
             //Spinner providerSpinner = (Spinner) editToolbar.FindViewById<Resource.Id.sp
+            #endregion
             editToolbar.MenuItemClick += (sender, e) =>
             {                
                 switch (e.Item.ItemId)
                 {
                     case Resource.Id.menu_save:
-                        if (lastBet.Text != string.Empty)
+                        if (lastBet.Text != string.Empty && betTeamName.Text!= string.Empty)
                         {
-                            BetDetails modifiedTeamDetail = new BetDetails()
+
+                            Team teamModified = new Team()
                             {
-                                Id = betDetails[betDetails.Count - 1].Id,
-                                Quantity = Decimal.Parse(lastBet.Text),
-                                Team_Id = activeBetTeams[betTeamsSpinner.SelectedItemPosition].Id,
+                                Id = selectedTeamId,
+                                Name = betTeamName.Text
                             };
-                            if (AWSDataAccess.UpdateBetTeamDetail(modifiedTeamDetail) != Guid.Empty)
+
+                            if (AWSDataAccess.UpdateTeamName(teamModified)!= Guid.Empty)
                             {
-                                Intent intent = new Intent();
-                                intent.PutExtra("type", Resources.GetString(Resource.String.modifyBet));
-                                Activity.SetResult(Result.Ok, intent);
-                                Activity.Finish();
-                                //Toast.MakeText(Activity, "Bet updated", ToastLength.Long).Show();
-                                //BackHome();
+                                BetDetails modifiedTeamDetail = new BetDetails()
+                                {
+                                    Id = betDetails[betDetails.Count - 1].Id,
+                                    Quantity = Decimal.Parse(lastBet.Text),
+                                    Team_Id = activeBetTeams[betTeamsSpinner.SelectedItemPosition].Id,
+                                };
+                                if (AWSDataAccess.UpdateBetTeamDetail(modifiedTeamDetail) != Guid.Empty)
+                                {
+                                    Intent intent = new Intent();
+                                    intent.PutExtra("type", Resources.GetString(Resource.String.modifyBet));
+                                    Activity.SetResult(Result.Ok, intent);
+                                    Activity.Finish();
+                                    //Toast.MakeText(Activity, "Bet updated", ToastLength.Long).Show();
+                                    //BackHome();
+                                }
+                                else
+                                {
+                                    Toast.MakeText(Activity, "Error in bet updating", ToastLength.Long).Show();
+                                }
+
                             }
                             else
                             {
                                 Toast.MakeText(Activity, "Error in bet updating", ToastLength.Long).Show();
                             }
+                            
                         }
                         else
                         {
                             lastBet.Error = "Required!";
+                            betTeamName.Error = "Required!";
+
                         }
                         break;
                     case Resource.Id.menu_delete:
@@ -291,7 +313,7 @@ namespace AWSBetting
         }
 
         private int running=1;
-
+        private Guid selectedTeamId = Guid.Empty;
         private void BetTeamsSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
 
@@ -312,9 +334,9 @@ namespace AWSBetting
                     //Activity.RunOnUiThread(() =>
                     //{
                     //});
-
+                    betTeamName.Text = activeBetTeams[e.Position].Name;
                     betType.Text = activeBetTeams[e.Position].Bet;
-
+                    selectedTeamId = activeBetTeams[e.Position].Id;
                     //Activity.RunOnUiThread(() =>
                     //{
                         
@@ -322,7 +344,7 @@ namespace AWSBetting
                 }
             }
             #endregion
-
+            #region old code
             //new Thread(new ThreadStart(delegate
             //{
 
@@ -355,7 +377,7 @@ namespace AWSBetting
             //{
 
             //}
-
+            #endregion
 
 
         }

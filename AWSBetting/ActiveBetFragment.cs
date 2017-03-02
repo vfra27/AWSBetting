@@ -44,6 +44,13 @@ namespace AWSBetting
 
 
             this.teams = AWSDataAccess.GetBetTeam(0);
+
+            foreach (Team item in this.teams)
+            {
+                List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(item.Id);
+                item.LastBet = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
+            }
+
             ListView betList = view.FindViewById<ListView>(Resource.Id.ActiveBetList);
             //ListView betList = view.FindViewById<ListView>(Resource.Id.ActiveBetList);
 

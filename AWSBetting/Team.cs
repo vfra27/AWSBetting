@@ -46,6 +46,8 @@ namespace AWSBetting
             get { return Win - TotalCost; }
             
         }
+
+        public string LastBet { get; set; }
     }
 
     public enum BetProvider
