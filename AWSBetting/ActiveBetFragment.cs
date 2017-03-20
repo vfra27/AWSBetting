@@ -21,6 +21,7 @@ namespace AWSBetting
     public class ActiveBetFragment : Android.Support.V4.App.Fragment
     {
         List<Team> teams;
+        ListView betList;
 
         public ActiveBetFragment():base()
         {
@@ -38,26 +39,30 @@ namespace AWSBetting
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            //View view = new View(Activity);
+            
             View view = inflater.Inflate(Resource.Layout.ActiveBet, null);
 
+            //FetchingList task = new FetchingList(Activity);
+            //task.Execute("");
 
-            this.teams = AWSDataAccess.GetBetTeam(0);
+            Task.Run(() => SetupData());
+            //this.teams = AWSDataAccess.GetBetTeam(0);
 
-            foreach (Team item in this.teams)
-            {
-                List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(item.Id);
-                item.LastBet = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
-            }
+            //foreach (Team item in this.teams)
+            //{
+            //    List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(item.Id);
+            //    item.LastBet = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
+            //}
 
-            ListView betList = view.FindViewById<ListView>(Resource.Id.ActiveBetList);
-            //ListView betList = view.FindViewById<ListView>(Resource.Id.ActiveBetList);
+            betList = view.FindViewById<ListView>(Resource.Id.ActiveBetList);
+            
 
             ViewGroup header = (ViewGroup)inflater.Inflate(Resource.Layout.ActiveBetHeader, betList, false);
             betList.AddHeaderView(header, null, false);
-            betList.Adapter = new TeamListAdapter(Activity, this.teams);
+            //betList.Adapter = new TeamListAdapter(Activity, this.teams);
             betList.ItemClick += ActiveBetFragment_ItemClick;
+
+
 
             #region with progress dialog
             //var progressDialog = ProgressDialog.Show(Activity, "", "Loading bet", true);
@@ -116,7 +121,7 @@ namespace AWSBetting
             #endregion
 
 
-
+            #region old code
             //this.teams = AWSDataAccess.GetBetTeam(0);
 
             //ViewGroup header = (ViewGroup)inflater.inflate(R.layout.header, myListView, false);
@@ -127,12 +132,30 @@ namespace AWSBetting
             //betList.ItemClick += ActiveBetFragment_ItemClick;
 
             //progressDialog.Dismiss();
-
+            #endregion
             return view;
             //AWSDataAccess.SelectActiveBetTeam()
             //return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
+        async Task SetupData()
+        {
+            await Task.Run(async () =>
+            {
+                 this.teams = AWSDataAccess.GetBetTeam(0);
+                await Task.Delay(0);
+                foreach (Team item in this.teams)
+                {                    
+                    List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(item.Id);
+                    item.LastBet = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
+                }
+                Activity.RunOnUiThread(() =>
+                {
+                    betList.Adapter = new TeamListAdapter(Activity, this.teams);
+                });
+
+            });
+        }
 
         public override bool UserVisibleHint
         {
@@ -175,6 +198,41 @@ namespace AWSBetting
         }
     }
 
-    
+     class FetchingList : AsyncTask<string, int, string>
+    {
+
+        List<Team> teams = new List<Team>();
+
+        Activity ctx;
+
+        public FetchingList(Context ctx)
+        {
+            this.ctx = ctx as Activity;
+        }
+        protected override void OnPostExecute(string result)
+        {
+            if (result == "OK")
+            {
+                
+                ListView listView = ctx.FindViewById<ListView>(Resource.Id.ActiveBetList);
+                listView.Adapter = new TeamListAdapter(ctx, this.teams);
+            }
+        }
+
+        protected override string RunInBackground(params string[] @params)
+        {
+
+            teams = AWSDataAccess.GetBetTeam(0);
+            foreach (Team item in teams)
+            {
+                List<BetDetails> betDetails = AWSDataAccess.GetBetDetailsByTeamId(item.Id);
+                item.LastBet = AWSDataAccess.DoFormat(betDetails[betDetails.Count - 1].Quantity);
+            }
+
+            return "OK";
+        }
+        
+    }
+
 
 }
